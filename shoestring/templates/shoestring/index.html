@@ -1,16 +1,17 @@
 <html>{% load staticfiles %}
     <head>
-        <link rel="stylesheet" type="text/css" href="{% static 'css/uikit.min.css' %}">
-        <script src="{% static 'js/jquery.min.js' %}"></script>
+        <link rel="stylesheet" type="text/css" href="{% static 'shoestring/css/uikit.min.css' %}">
+        <script src="{% static 'shoestring/js/jquery.min.js' %}"></script>
 
-        <script src="{% static 'js/ractive.min.js' %}"></script>
-        <script src="{% static 'js/js-signals.min.js' %}"></script>
-        <script src="{% static 'js/hasher.min.js' %}"></script>
-        <script src="{% static 'js/crossroads.min.js' %}"></script>
+        <script src="{% static 'shoestring/js/ractive.min.js' %}"></script>
+        <script src="{% static 'shoestring/js/js-signals.min.js' %}"></script>
+        <script src="{% static 'shoestring/js/hasher.min.js' %}"></script>
+        <script src="{% static 'shoestring/js/crossroads.min.js' %}"></script>
 
-        <script src="{% static 'js/uikit/uikit.min.js' %}"></script>
-        <script src="{% static 'js/uikit/modal.min.js' %}"></script>
+        <script src="{% static 'shoestring/js/uikit/uikit.min.js' %}"></script>
+        <script src="{% static 'shoestring/js/uikit/modal.min.js' %}"></script>
 
+{% verbatim %}
 <script id="layout" type="text/ractive">
 <main class="uk-grid">
     <aside class="uk-width-1-6">
@@ -41,7 +42,7 @@
     </aside>
 </main>
 </script>
-
+{% endverbatim %}
 <script>
 $(function () {
 
