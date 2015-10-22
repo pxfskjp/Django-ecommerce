@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models, transaction
 from django.utils import timezone
 from django.utils.functional import cached_property
@@ -7,7 +8,7 @@ from ..products.models import BaseProduct
 
 
 class Order(models.Model):
-    user = models.ForeignKey('auth.User')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL)
     created = models.DateTimeField(default=timezone.now)
 
     shipping_address = models.TextField(blank=True)
@@ -40,7 +41,7 @@ class OrderItem(BaseProduct):
         (1, 'Shipped'),
     ), default=0)
 
-    objects = managers.OderItemQuerySet.as_manager()
+    objects = managers.OrderItemQuerySet.as_manager()
 
     @cached_property
     def total(self):
