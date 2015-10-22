@@ -1,6 +1,5 @@
 from django.contrib import auth
 from django.contrib.auth.forms import AuthenticationForm
-
 from nap import http
 from nap.rest import views
 

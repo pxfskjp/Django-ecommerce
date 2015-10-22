@@ -1,7 +1,6 @@
 from nap.rest import views
 
-from . import mappers
-from . import models
+from . import mappers, models
 
 
 class ProductMixin:
