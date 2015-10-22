@@ -16,4 +16,3 @@ class ProductListView(ProductMixin,
                       views.ListGetMixin,
                       views.BaseListView):
     pass
-
