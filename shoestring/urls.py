@@ -5,5 +5,7 @@ urlpatterns = [
     url(r'^accounts/',
         include('shoestring.accounts.urls', namespace='accounts')
         ),
-    # url(r'^products/', include('shoestring.products.urls', namespace='products')),
+    url(r'^products/',
+        include('shoestring.products.urls', namespace='products')
+        ),
 ]
