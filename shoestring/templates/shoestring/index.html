@@ -22,8 +22,6 @@
                 <a on-click="toggleTag">{{name}} <small class="uk-badge uk-badge-notification uk-text-right">{{count}}</small></a>
             </li>
             {{/tags}}
-            <li class="uk-nav-divider"></li>
-            <li class="uk-nav-header">Facets</li>
         </ul>
     </aside>
     <section class="uk-width-4-6 uk-grid uk-grid-width-1-4">
@@ -52,14 +50,9 @@ $(function () {
         el: '#shop',
         template: '#layout',
         data: {
-            products: [
-                {name: 'Dummy Product', sku: 'd001', price: 5.01}
-            ],
-            tags: [
-                {name: 'Red', count: 50, active: false}
-            ],
-            facets: [
-            ]
+            products: [ ],
+            tags: [ ],
+            facets: [ ]
         },
         computed: {
             // Allows lookup of Product by SKU
@@ -88,7 +81,11 @@ $(function () {
 
     hasher.initialized.add(parseHash); //parse initial hash
     hasher.changed.add(parseHash); //parse hash changes
-    hasher.init(); //start listening for history change
+
+    $.getJSON("{% url 'shoestring:products:product-list' %}", function (data) {
+        ractive.set('products', data);
+        hasher.init(); //start listening for history change
+    });
 });
 
 </script>
