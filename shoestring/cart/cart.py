@@ -8,7 +8,7 @@ Product = apps.get_model('products.Product')
 
 
 class CartItem(object):
-    __slots__ = ('sku', 'qty', 'product',)
+    __slots__ = ('sku', 'qty',)
 
     def __init__(self, sku, qty):
         self.sku = sku
