@@ -11,5 +11,8 @@ class OrderItemInline(admin.TabularInline):
 class OrderAdmin(admin.ModelAdmin):
     list_display = ('pk', 'created', 'user',)
     list_filter = ('created',)
+    inlines = (
+        OrderItemInline,
+    )
 
 admin.site.register(models.Order, OrderAdmin)
