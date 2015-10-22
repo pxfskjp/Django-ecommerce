@@ -10,7 +10,7 @@ class Payment(models.Model):
         PENDING = 0
         DECLINED = 1
         APPROVED = 2
-    order = models.ForeignKey('order.Order')
+    order = models.ForeignKey('orders.Order')
     created = models.DateTimeField(default=timezone.now, editable=False)
     state = models.IntegerField(default=STATE.PENDING, choices=(
         (x.value, x.name.title())
