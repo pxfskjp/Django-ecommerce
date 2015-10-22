@@ -12,3 +12,7 @@ class ProductMapper(ModelDataMapper):
     @field
     def brand(self):
         return self.brand.name
+
+    @field
+    def tags(self):
+        return list(self.tags.values('name', 'slug'))
