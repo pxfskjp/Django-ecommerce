@@ -1,5 +1,5 @@
-
 from django.utils.functional import cached_property
+
 from nap import rpc
 from nap.utils.ripper import Ripper
 
