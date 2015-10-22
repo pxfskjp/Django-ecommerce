@@ -1,0 +1,114 @@
+<html>{% load staticfiles %}
+    <head>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/uikit.min.css' %}">
+        <script src="{% static 'js/jquery.min.js' %}"></script>
+
+        <script src="{% static 'js/ractive.min.js' %}"></script>
+        <script src="{% static 'js/js-signals.min.js' %}"></script>
+        <script src="{% static 'js/hasher.min.js' %}"></script>
+        <script src="{% static 'js/crossroads.min.js' %}"></script>
+
+        <script src="{% static 'js/uikit/uikit.min.js' %}"></script>
+        <script src="{% static 'js/uikit/modal.min.js' %}"></script>
+
+<script id="layout" type="text/ractive">
+<main class="uk-grid">
+    <aside class="uk-width-1-6">
+        <ul class="uk-nav uk-nav-side">
+            <li class="uk-nav-header">Tags</li>
+            {{#tags}}
+            <li class="{{ active ? 'uk-active' : '' }}">
+                <a on-click="toggleTag">{{name}} <small class="uk-badge uk-badge-notification uk-text-right">{{count}}</small></a>
+            </li>
+            {{/tags}}
+            <li class="uk-nav-divider"></li>
+            <li class="uk-nav-header">Facets</li>
+        </ul>
+    </aside>
+    <section class="uk-width-4-6 uk-grid uk-grid-width-1-4">
+        {{#products}}
+        <div class="uk-panel uk-panel-box" on-click="showProduct">
+            <img src="{{ images.0.url }}">
+            <strong> {{ name }} </strong>
+            <small> ${{ price }} </small>
+        </div>
+        {{/products}}
+    </section>
+    <aside class="uk-width-1-6">
+        <section>
+            <h3> Cart </h3>
+        </section>
+    </aside>
+</main>
+</script>
+
+<script>
+$(function () {
+
+    var productDetail = UIkit.modal('#product-view');
+
+    var ractive = new Ractive({
+        el: '#shop',
+        template: '#layout',
+        data: {
+            products: [
+                {name: 'Dummy Product', sku: 'd001', price: 5.01}
+            ],
+            tags: [
+                {name: 'Red', count: 50, active: false}
+            ],
+            facets: [
+            ]
+        },
+        computed: {
+            // Allows lookup of Product by SKU
+            product_map: function () {
+                var o = {};
+                this.get('products').forEach(function (rec) { o[rec.sku] = rec; });
+                return o;
+            }
+        }
+    });
+    ractive.on('showProduct', function (event) {
+        hasher.setHash('view/' + event.context.sku);
+    });
+
+    function viewProduct(sku) {
+        var rec = ractive.get('product_map')[sku];
+        productDetail.show();
+    }
+
+    crossroads.addRoute('view/{sku}', viewProduct);
+    // crossroads.routed.add(console.log, console);
+
+    function parseHash(newHash, oldHash) {
+        crossroads.parse(newHash);
+    };
+
+    hasher.initialized.add(parseHash); //parse initial hash
+    hasher.changed.add(parseHash); //parse hash changes
+    hasher.init(); //start listening for history change
+});
+
+</script>
+
+    <head>
+    <body class="uk-container uk-container-center">
+        <header class="uk-grid">
+            <h1 class="uk-width-1-1 uk-text-center">The Store</h1>
+        </header>
+
+        <div id="shop"></div>
+
+        <div id="product-view" class="uk-modal">
+            <div class="uk-modal-dialog">
+                <a class="uk-modal-close uk-close"></a>
+                <header class="uk-modal-header">
+                </header>
+                <footer class="uk-modal-footer">
+                </footer>
+            </div>
+        </div>
+
+    </body>
+</html>
