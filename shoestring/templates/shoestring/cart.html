@@ -1,9 +1,10 @@
 {% verbatim %}
 <div id="cart">
-    <ul>
+    <ul class="uk-list">
     {{#items}}
-        <li> {{name}} x {{qty}} = ${{price()}} </li>
+        <li> {{name}} x {{qty}} = ${{ price(this) }} </li>
     {{/items }}
     </ul>
+    <p><strong> Total </strong> ${{total}}</p>
 </div>
 {% endverbatim %}
