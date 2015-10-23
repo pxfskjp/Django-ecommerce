@@ -1,8 +1,9 @@
 
 var Cart = Ractive.extend({
     template: '#cart',
-    data: {
-        total: 0,
-        items: []
+    load: function () {
+        rpc_call(SS.url.cart, 'content', {}, function (data) {
+            this.set(data);
+        }.bind(this));
     }
 });

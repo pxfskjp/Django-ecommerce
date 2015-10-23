@@ -1,8 +1,6 @@
 
 var ProductList = Ractive.extend({
     template: '#product-list',
-    data: {
-    },
     computed: {
         sku_map: function () {
             var o = {};
@@ -10,4 +8,9 @@ var ProductList = Ractive.extend({
             return o;
         }
     }
+});
+
+
+var ProductDetail = Ractive.extend({
+    template: '#product-detail'
 });
