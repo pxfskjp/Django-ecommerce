@@ -17,8 +17,8 @@ class CartView(rpc.RPCView):
     def save(self):
         self.cart.save(self.request.session)
 
-    @rpc.method
-    def content(self):
+    def _render(self):
+        '''Render the cart'''
         return {
             'total': self.cart.total(),
             'items': [
@@ -28,13 +28,17 @@ class CartView(rpc.RPCView):
         }
 
     @rpc.method
+    def content(self):
+        return self._render()
+
+    @rpc.method
     def add(self, sku, qty):
         '''
         Add an Item to the cart
         '''
         self.cart.add(sku, qty)
         self.save()
-        return {}
+        return self._render()
 
     @rpc.method
     def quantity(self, sku, qty):
@@ -51,7 +55,7 @@ class CartView(rpc.RPCView):
             except KeyError:
                 raise ValueError('Item not in cart', sku)
 
-        return {}
+        return self._render()
 
     def clear(self):
         '''
@@ -59,4 +63,4 @@ class CartView(rpc.RPCView):
         '''
         self.request.session.pop('cart')
         self.save()
-        return {}
+        return self._render()
