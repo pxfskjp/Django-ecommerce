@@ -1,6 +1,6 @@
 from django.utils.functional import cached_property
 
-from nap import rpc
+from nap import http, rpc
 from nap.utils.ripper import Ripper
 
 from .cart import Cart
@@ -9,6 +9,9 @@ CartItemRipper = Ripper('sku', 'qty', 'product')
 
 
 class CartView(rpc.RPCView):
+
+    def get(self, request):
+        return http.JsonResponse(self._render())
 
     @cached_property
     def cart(self):
