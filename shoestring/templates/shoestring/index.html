@@ -9,42 +9,44 @@
         <script src="{% static 'shoestring/js/crossroads.min.js' %}"></script>
 
         <script src="{% static 'shoestring/js/uikit/uikit.min.js' %}"></script>
-        <script src="{% static 'shoestring/js/uikit/modal.min.js' %}"></script>
+
+<script id="cart" type="text/ractive">{% include 'shoestring/cart.html' %}</script>
+<script id="product-list" type="text/ractive">{% include 'shoestring/product-list.html' %}</script>
+<script id="product-detail" type="text/ractive">{% include 'shoestring/product-detail.html' %}</script>
+<script id="tag-filters" type="text/ractive">{% include 'shoestring/tag-filters.html' %}</script>
+
+<script>
+    var SS = {};
+    SS.url = {
+        cart: "{% url 'shoestring:cart:cart' %}",
+        product: "{% url 'shoestring:products:product-list' %}",
+    };
+</script>
+
+        <script src="{% static 'shoestring/js/rpc.js' %}"></script>
+        <script src="{% static 'shoestring/js/cart.js' %}"></script>
+        <script src="{% static 'shoestring/js/products.js' %}"></script>
+        <script src="{% static 'shoestring/js/tag-filters.js' %}"></script>
 
 {% verbatim %}
 <script id="layout" type="text/ractive">
 <main class="uk-grid">
     <aside class="uk-width-1-6">
-        <ul class="uk-nav uk-nav-side">
-            <li class="uk-nav-header">Tags</li>
-            {{#tags}}
-            <li class="{{ active ? 'uk-active' : '' }}">
-                <a on-click="toggleTag">{{name}} <small class="uk-badge uk-badge-notification uk-text-right">{{count}}</small></a>
-            </li>
-            {{/tags}}
-        </ul>
+        <tag-filters tags="{{tags}}" />
     </aside>
     <section class="uk-width-4-6 uk-flex uk-flex-space-between">
         {{#products}}
-        <div class="uk-panel uk-panel-box" on-click="showProduct">
-            <img src="{{ images.0.url }}">
-            <strong> {{ name }} </strong>
-            <small> ${{ price }} </small>
-        </div>
+        <product-list item="{{item}}" />
         {{/products}}
     </section>
     <aside class="uk-width-1-6">
-        <section>
-            <h3> Cart </h3>
-        </section>
+        <cart cart="{{cart}}" />
     </aside>
 </main>
 </script>
 {% endverbatim %}
 <script>
 $(function () {
-
-    var productDetail = UIkit.modal('#product-view');
 
     var ractive = new Ractive({
         el: '#shop',
@@ -61,6 +63,12 @@ $(function () {
                 this.get('products').forEach(function (rec) { o[rec.sku] = rec; });
                 return o;
             }
+        },
+        components: {
+            cart: Cart,
+            'product-list': ProductList,
+            'product-detail': ProductDetail,
+            'tag-filters': TagFilters
         }
     });
     ractive.on('showProduct', function (event) {
