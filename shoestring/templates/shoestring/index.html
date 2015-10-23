@@ -46,9 +46,10 @@
 </script>
 {% endverbatim %}
 <script>
+var ractive;
 $(function () {
 
-    var ractive = new Ractive({
+    ractive = new Ractive({
         el: '#shop',
         template: '#layout',
         data: {
@@ -71,13 +72,12 @@ $(function () {
             'tag-filters': TagFilters
         }
     });
-    ractive.on('showProduct', function (event) {
-        hasher.setHash('view/' + event.context.sku);
+    ractive.on('product-list.showProduct', function (event) {
+        hasher.setHash('view/' + event.component.get('sku'));
     });
 
     function viewProduct(sku) {
         var rec = ractive.get('product_map')[sku];
-        productDetail.show();
     }
 
     crossroads.addRoute('view/{sku}', viewProduct);
