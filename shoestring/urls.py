@@ -8,7 +8,7 @@ urlpatterns = [
         ensure_csrf_cookie(render),
         {'template_name': 'shoestring/index.html'},
         name='index'),
-    url(r'^cart/', render, 
+    url(r'^cart/',
         include('shoestring.cart.urls', namespace='cart')),
     url(r'^accounts/',
         include('shoestring.accounts.urls', namespace='accounts')),
