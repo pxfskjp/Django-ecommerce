@@ -1,11 +1,9 @@
 from django.utils.functional import cached_property
 
 from nap import http, rpc
-from nap.utils.ripper import Ripper
 
 from .cart import Cart
-
-CartItemRipper = Ripper('sku', 'qty', 'product')
+from .mappers import CartItemMapper
 
 
 class CartView(rpc.RPCView):
@@ -22,10 +20,11 @@ class CartView(rpc.RPCView):
 
     def _render(self):
         '''Render the cart'''
+        mapper = CartItemMapper()
         return {
-            'total': self.cart.total(),
+            'total': float(self.cart.total()),
             'items': [
-                CartItemRipper(item)
+                mapper << item
                 for item in self.cart.values()
             ],
         }
