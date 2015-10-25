@@ -1,14 +1,15 @@
 <html>{% load staticfiles %}
     <head>
-        <link rel="stylesheet" type="text/css" href="{% static 'shoestring/css/uikit.min.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'shoestring/uikit/css/uikit.min.css' %}">
         <script src="{% static 'shoestring/js/jquery.min.js' %}"></script>
+        <script src="{% static 'shoestring/js/csrf.js' %}"></script>
 
         <script src="{% static 'shoestring/js/ractive.min.js' %}"></script>
         <script src="{% static 'shoestring/js/js-signals.min.js' %}"></script>
         <script src="{% static 'shoestring/js/hasher.min.js' %}"></script>
         <script src="{% static 'shoestring/js/crossroads.min.js' %}"></script>
 
-        <script src="{% static 'shoestring/js/uikit/uikit.min.js' %}"></script>
+        <script src="{% static 'shoestring/uikit/js/uikit.min.js' %}"></script>
 
 <script id="cart" type="text/ractive">{% include 'shoestring/cart.html' %}</script>
 <script id="product-list" type="text/ractive">{% include 'shoestring/product-list.html' %}</script>
@@ -34,9 +35,11 @@
     <aside class="uk-width-1-6">
         <tag-filters tags="{{tags}}" />
     </aside>
-    <section class="uk-width-4-6 uk-flex uk-flex-space-between">
+    <section class="uk-width-4-6 uk-grid uk-grid-width-1-4">
         {{#products}}
+        <article>
         <product-list item="{{item}}" />
+        </article>
         {{/products}}
     </section>
     <aside class="uk-width-1-6">
@@ -72,28 +75,19 @@ $(function () {
             'tag-filters': TagFilters
         }
     });
-    ractive.on('product-list.showProduct', function (event) {
-        hasher.setHash('view/' + event.component.get('sku'));
+    ractive.on({
+        'product-list.showProduct': function (event) {
+            // hasher.setHash('view/' + event.component.get('sku'));
+        },
+        '*.addToCart': function (event) {
+            ractive.findComponent('cart').add(event.component.get('sku'));
+        }
     });
-
-    function viewProduct(sku) {
-        var rec = ractive.get('product_map')[sku];
-    }
-
-    crossroads.addRoute('view/{sku}', viewProduct);
-    // crossroads.routed.add(console.log, console);
-
-    function parseHash(newHash, oldHash) {
-        crossroads.parse(newHash);
-    };
-
-    hasher.initialized.add(parseHash); //parse initial hash
-    hasher.changed.add(parseHash); //parse hash changes
 
     $.getJSON("{% url 'shoestring:products:product-list' %}", function (data) {
         ractive.set('products', data);
-        hasher.init(); //start listening for history change
     });
+    ractive.findComponent('cart').load();
 });
 
 </script>
