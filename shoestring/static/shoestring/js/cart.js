@@ -14,5 +14,8 @@ var Cart = Ractive.extend({
     },
     add: function (sku, qty) {
         rpc_call(SS.url.cart, 'add', {sku: sku, qty: qty || 1}, this.update.bind(this));
+    },
+    quantity: function (sku, qty) {
+        rpc_call(SS.url.cart, 'quantity', {sku: sku, qty: qty}, this.update.bind(this));
     }
 });
