@@ -1,0 +1,44 @@
+{% verbatim %}
+<div class="modal">
+    <header>
+        <h2> Your Cart </h2>
+    </header>
+    <table class="uk-table uk-table-striped uk-table-condensed">
+        <thead>
+            <tr>
+                <th>Item</th>
+                <th class="uk-text-right">Qty.</th>
+                <th class="uk-text-right">Unit</th>
+                <th class="uk-text-right">Total</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <td colspan="3">Total</td>
+                <th class="uk-text-right">${{ dollar_fmt(cart.total) }}</th>
+                <td></td>
+            </tr>
+        </tfoot>
+        <tbody>
+        {{#cart.items}}
+            <tr>
+                <td>{{name}}</td>
+                <td class="uk-text-right">
+                    <div class="uk-button-group">
+                        <a on-click="decCartItem" class="uk-button"><i class="uk-icon uk-icon-minus" /></a>
+                        <span class="uk-button">{{qty}}</span>
+                        <a on-click="incCartItem" class="uk-button"><i class="uk-icon uk-icon-plus" /></a>
+                    </div>
+                </td>
+                <td class="uk-text-right">${{ dollar_fmt(price) }}</td>
+                <td class="uk-text-right">${{ total(this) }}</td>
+                <td>
+                    <i on-click="remCartItem" class="uk-icon uk-icon-remove" />
+                </td>
+            </tr>
+        {{/cart.items}}
+        </tbody>
+    </table>
+</div>
+{% endverbatim %}
