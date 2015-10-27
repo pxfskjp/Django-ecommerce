@@ -15,7 +15,24 @@ var Cart = Ractive.extend({
     add: function (sku, qty) {
         rpc_call(SS.url.cart, 'add', {sku: sku, qty: qty || 1}, this.update.bind(this));
     },
+    remove: function (sku) {
+        rpc_call(SS.url.cart, 'quantity', {sku: sku, qty: 0}, this.update.bind(this));
+    },
     quantity: function (sku, qty) {
         rpc_call(SS.url.cart, 'quantity', {sku: sku, qty: qty}, this.update.bind(this));
+    },
+    oninit: function () {
+        this.on({
+            'incCartItem': function (ev) {
+                this.quantity(ev.context.sku, ev.context.qty + 1);
+            }.bind(this),
+            'decCartItem': function (ev) {
+                if(ev.context.qty > 1) {
+                    this.quantity(ev.context.sku, ev.context.qty - 1);
+                } else {
+                    this.remove(ev.context.sku);
+                }
+            }.bind(this)
+        });
     }
 });
