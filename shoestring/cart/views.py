@@ -59,6 +59,7 @@ class CartView(rpc.RPCView):
 
         return self._render()
 
+    @rpc.method
     def clear(self):
         '''
         Clear the cart.

@@ -1,16 +1,16 @@
 {% verbatim %}
 <div class="modal">
-    <header>
-        <h2> Your Cart </h2>
-    </header>
     <table class="uk-table uk-table-striped uk-table-condensed">
+        <caption>
+            <h2> Your Cart </h2>
+        </caption>
         <thead>
             <tr>
                 <th>Item</th>
                 <th class="uk-text-right">Qty.</th>
                 <th class="uk-text-right">Unit</th>
                 <th class="uk-text-right">Total</th>
-                <th></th>
+                <th><a on-click="clearCart" class="uk-button"><i class="uk-icon uk-icon-recycle" /></a></th>
             </tr>
         </thead>
         <tfoot>

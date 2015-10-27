@@ -12,6 +12,9 @@ var Cart = Ractive.extend({
     load: function () {
         rpc_call(SS.url.cart, 'content', {}, this.update.bind(this));
     },
+    clear: function () {
+        rpc_call(SS.url.cart, 'clear', {}, this.update.bind(this));
+    },
     add: function (sku, qty) {
         rpc_call(SS.url.cart, 'add', {sku: sku, qty: qty || 1}, this.update.bind(this));
     },
@@ -32,6 +35,9 @@ var Cart = Ractive.extend({
                 } else {
                     this.remove(ev.context.sku);
                 }
+            }.bind(this),
+            'clearCart': function (ev) {
+                this.clear();
             }.bind(this)
         });
     }
