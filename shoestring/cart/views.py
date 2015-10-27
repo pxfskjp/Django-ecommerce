@@ -52,7 +52,7 @@ class CartView(rpc.RPCView):
             self.save()
         else:
             try:
-                self.cart[sku].qty += qty
+                self.cart[sku].qty = qty
                 self.save()
             except KeyError:
                 raise ValueError('Item not in cart', sku)
