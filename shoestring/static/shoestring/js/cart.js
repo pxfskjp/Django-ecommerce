@@ -1,5 +1,5 @@
 
-function dollar_fmt (value) { return value.toFixed(2); }
+function dollar_fmt (value) { return new Number(value).toFixed(2); }
 
 var Cart = Ractive.extend({
     template: '#cart',
@@ -42,3 +42,5 @@ var Cart = Ractive.extend({
         });
     }
 });
+
+var MiniCart = Cart.extend({template: '#mini-cart'});
