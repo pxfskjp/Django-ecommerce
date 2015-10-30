@@ -22,7 +22,7 @@ class ProductMapper(ModelDataMapper):
     @field
     def images(self):
         return [
-            i.image.url
+            i.image.name
             for i in self.images.all()
         ]
 

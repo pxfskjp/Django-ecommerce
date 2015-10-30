@@ -1,4 +1,13 @@
+import os.path
+from urllib.parse import unquote
+
+from django import http
+
 from nap.rest import views
+
+from easy_thumbnails.alias import aliases
+from easy_thumbnails.exceptions import EasyThumbnailsError
+from easy_thumbnails.files import get_thumbnailer
 
 from . import mappers, models
 
@@ -20,5 +29,26 @@ class ProductListView(ProductMixin,
 class TagListView(views.ListGetMixin,
                   views.BaseListView):
     mapper_class = mappers.TagMapper
+
     def get_queryset(self):
         return models.Product.tags.most_common()
+
+
+def thumbnail(request, alias, path):
+    '''Redirect to a thumbnail as configured with GET params'''
+
+    # Clean up path
+    path = os.path.normpath(path)
+    # Unescape
+    path = unquote(path)
+
+    options = aliases.get(alias)
+
+    # Create thumbnail
+    try:
+        thumbnail = get_thumbnailer(path).get_thumbnail(options)
+
+        return http.HttpResponsePermanentRedirect(thumbnail.url)
+
+    except EasyThumbnailsError:
+        raise http.Http404

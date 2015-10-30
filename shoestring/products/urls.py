@@ -9,4 +9,7 @@ urlpatterns = [
     url(r'^_$',
         views.TagListView.as_view(),
         name='tag-list'),
+    url(r'^(?P<alias>[\w-]+)/(?P<path>.*)$',
+        views.thumbnail,
+        name='thumbnail'),
 ]
