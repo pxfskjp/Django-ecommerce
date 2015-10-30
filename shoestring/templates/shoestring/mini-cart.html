@@ -1,18 +1,17 @@
 {% verbatim %}
-<div id="cart">
+<div id="cart" class="uk-font-small">
     <table class="uk-table uk-table-striped uk-table-condensed">
         <caption>Your Cart</caption>
         <thead>
             <tr>
                 <th>Item</th>
                 <th class="uk-text-right">Qty.</th>
-                <th class="uk-text-right">Unit</th>
                 <th class="uk-text-right">Total</th>
             </tr>
         </thead>
         <tfoot>
             <tr>
-                <td colspan="3">Total</td>
+                <td colspan="2">Total</td>
                 <th class="uk-text-right">${{ dollar_fmt(cart.total) }}</th>
             </tr>
         </tfoot>
@@ -21,7 +20,6 @@
             <tr>
                 <td>{{name}}</td>
                 <td class="uk-text-right">{{qty}}</td>
-                <td class="uk-text-right">${{ dollar_fmt(price) }}</td>
                 <td class="uk-text-right">${{ total(this) }}</td>
             </tr>
         {{/cart.items}}
