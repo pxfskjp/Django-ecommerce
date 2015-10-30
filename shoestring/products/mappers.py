@@ -19,6 +19,13 @@ class ProductMapper(ModelDataMapper):
     def tags(self):
         return list(self.tags.values('name', 'slug'))
 
+    @field
+    def images(self):
+        return [
+            i.image.url
+            for i in self.images.all()
+        ]
+
 
 class TagMapper(ModelDataMapper):
     class Meta:
@@ -26,5 +33,5 @@ class TagMapper(ModelDataMapper):
         fields = '__all__'
 
     @field
-    def num_times(self):
+    def count(self):
         return self.num_times
