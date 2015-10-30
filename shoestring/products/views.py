@@ -15,3 +15,10 @@ class ProductListView(ProductMixin,
                       views.ListGetMixin,
                       views.BaseListView):
     pass
+
+
+class TagListView(views.ListGetMixin,
+                  views.BaseListView):
+    mapper_class = mappers.TagMapper
+    def get_queryset(self):
+        return models.Product.tags.most_common()
