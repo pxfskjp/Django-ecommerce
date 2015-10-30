@@ -10,6 +10,7 @@
         <script src="{% static 'shoestring/js/crossroads.min.js' %}"></script>
 
         <script src="{% static 'shoestring/uikit/js/uikit.min.js' %}"></script>
+        <script src="{% static 'shoestring/uikit/js/components/grid.js' %}"></script>
 
 <script id="cart" type="text/ractive">{% include 'shoestring/cart.html' %}</script>
 <script id="product-list" type="text/ractive">{% include 'shoestring/product-list.html' %}</script>
@@ -35,11 +36,9 @@
     <aside class="uk-width-1-6">
         <tag-filters tags="{{tags}}" />
     </aside>
-    <section class="uk-width-3-6 uk-grid uk-grid-width-1-4">
+    <section class="uk-width-3-6 uk-grid uk-grid-width-1-4 uk-grid-match" data-uk-grid-match="{target:'.uk-panel'}">
         {{#products}}
-        <article>
         <product-list item="{{item}}" />
-        </article>
         {{/products}}
     </section>
     <aside class="uk-width-2-6">
@@ -86,6 +85,9 @@ $(function () {
 
     $.getJSON("{% url 'shoestring:products:product-list' %}", function (data) {
         ractive.set('products', data);
+    });
+    $.getJSON("{% url 'shoestring:products:tag-list' %}", function (data) {
+        ractive.set('tags', data);
     });
     ractive.findComponent('cart').load();
 });
