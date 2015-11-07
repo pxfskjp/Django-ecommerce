@@ -53,6 +53,8 @@
 var ractive;
 $(function () {
 
+    var cart = new Cart();
+
     ractive = new Ractive({
         el: '#shop',
         template: '#layout',
@@ -60,7 +62,7 @@ $(function () {
             products: [ ],
             tags: [ ],
             facets: [ ],
-            cart: {}
+            cart: cart
         },
         computed: {
             // Allows lookup of Product by SKU
@@ -71,7 +73,7 @@ $(function () {
             }
         },
         components: {
-            cart: Cart,
+            cart: FullCart,
             'mini-cart': MiniCart,
             'product-list': ProductList,
             'product-detail': ProductDetail,
@@ -83,7 +85,7 @@ $(function () {
             // hasher.setHash('view/' + event.component.get('sku'));
         },
         '*.addToCart': function (event) {
-            ractive.findComponent('mini-cart').add(event.component.get('sku'));
+            cart.add(event.component.get('sku'));
         }
     });
 
@@ -93,7 +95,7 @@ $(function () {
     $.getJSON(SS.url.tags, function (data) {
         ractive.set('tags', data);
     });
-    ractive.findComponent('mini-cart').load();
+    cart.load();
 });
 
 </script>
