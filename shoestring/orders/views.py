@@ -22,4 +22,5 @@ class OrderListView(OrderMixin,
         if not cart:
             return http.BadRequest()
         order = models.Order.from_cart(request.user, cart)
+        request.session['order_id'] = order.pk
         return http.OK()

@@ -14,7 +14,7 @@ class OrderMapper(ModelDataMapper):
 
     @field
     def items(self):
-       return [
+        return [
             ItemRipper(item)
             for item in self.items.all()
         ]

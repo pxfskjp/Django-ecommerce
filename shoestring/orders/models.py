@@ -1,3 +1,5 @@
+from enum import IntEnum
+
 from django.conf import settings
 from django.db import models, transaction
 from django.utils import timezone
@@ -33,13 +35,16 @@ class Order(models.Model):
 
 
 class OrderItem(BaseProduct):
-    order = models.ForeignKey('Order')
+
+    class STATE(IntEnum):
+        CANCELLED = -1
+        PENDING = 0
+        SHIPPED = 1
+
+    order = models.ForeignKey('Order', related_name='items')
     quantity = models.PositiveIntegerField(default=1)
-    status = models.IntegerField(choices=(
-        (-1, 'Cancelled'),
-        (0, 'Ordered'),
-        (1, 'Shipped'),
-    ), default=0)
+    status = models.IntegerField(choices=((x.value, x.name) for x in STATE),
+                                 default=STATE.PENDING)
 
     objects = managers.OrderItemQuerySet.as_manager()
 
