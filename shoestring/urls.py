@@ -14,4 +14,6 @@ urlpatterns = [
         include('shoestring.accounts.urls', namespace='accounts')),
     url(r'^products/',
         include('shoestring.products.urls', namespace='products')),
+    url(r'^order/',
+        include('shoestring.orders.urls', namespace='orders')),
 ]
