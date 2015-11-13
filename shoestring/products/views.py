@@ -1,13 +1,12 @@
 import os.path
 from urllib.parse import unquote
 
-from django import http
-
-from nap.rest import views
-
 from easy_thumbnails.alias import aliases
 from easy_thumbnails.exceptions import EasyThumbnailsError
 from easy_thumbnails.files import get_thumbnailer
+from nap.rest import views
+
+from django import http
 
 from . import mappers, models
 

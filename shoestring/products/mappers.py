@@ -1,5 +1,4 @@
 from nap.datamapper import ModelDataMapper, field
-
 from taggit.models import Tag
 
 from . import models

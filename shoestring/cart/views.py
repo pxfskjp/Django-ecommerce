@@ -1,6 +1,6 @@
-from django.utils.functional import cached_property
-
 from nap import http, rpc
+
+from django.utils.functional import cached_property
 
 from .cart import Cart
 from .mappers import CartItemMapper

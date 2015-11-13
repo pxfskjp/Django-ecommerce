@@ -2,9 +2,7 @@
 from nap import http
 from nap.rest import views
 
-from . import mappers
-from . import models
-
+from . import mappers, models
 from ..cart.cart import Cart
 
 
