@@ -37,15 +37,13 @@
 <main class="uk-grid">
     <aside class="uk-width-1-6">
         <tag-filters tags="{{tags}}" />
+        <mini-cart cart="{{cart}}" />
     </aside>
-    <section class="uk-width-4-6 uk-grid uk-grid-width-1-3">
+    <section class="uk-width-5-6 uk-grid uk-grid-width-1-3">
         {{#products}}
         <product-list item="{{item}}" />
         {{/products}}
     </section>
-    <aside class="uk-width-1-6">
-        <mini-cart cart="{{cart}}" />
-    </aside>
 </main>
 </script>
 {% endverbatim %}
