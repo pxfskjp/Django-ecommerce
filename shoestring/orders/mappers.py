@@ -1,4 +1,4 @@
-from nap.datamappers import ModelDataMapper, field
+from nap.datamapper import ModelDataMapper, field
 from nap.utils.ripper import Ripper
 
 from . import models
