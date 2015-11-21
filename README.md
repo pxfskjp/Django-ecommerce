@@ -25,7 +25,6 @@ Add shoestring apps to INSTALLED_APPS
     'shoestring.orders',
     'shoestring.payments',
 
-    'taggit',
     'easy_thumbnails',
 
 Use our User model:

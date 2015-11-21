@@ -1,5 +1,5 @@
 Django~=1.8
-django-taggit~=0.17
 Pillow~=3.0
 django-nap==0.14.8
 easy-thumbnails==2.2
+django-array-tags==0.1.1
