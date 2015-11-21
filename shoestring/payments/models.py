@@ -12,7 +12,7 @@ class Payment(models.Model):
         APPROVED = 2
     order = models.ForeignKey('orders.Order')
     created = models.DateTimeField(default=timezone.now, editable=False)
-    state = models.IntegerField(default=STATE.PENDING, choices=(
+    state = models.IntegerField(default=STATE.PENDING.value, choices=(
         (x.value, x.name.title())
         for x in STATE
     ))
