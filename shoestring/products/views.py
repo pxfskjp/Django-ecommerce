@@ -7,6 +7,7 @@ from easy_thumbnails.files import get_thumbnailer
 
 from nap.rest import views
 
+from django.db.models import Count
 from django import http
 
 from . import mappers, models
@@ -39,6 +40,9 @@ class ProductListView(ProductMixin,
         tags = self.request.GET.getlist('tag')
         if tags:
             qset = qset.filter(tags__contains=tags)
+        brands = self.request.GET.getlist('brand')
+        if brands:
+            qset = qset.filter(brand__name__in=brands)
         # Apply sorting
         order = ORDER_MAP.get(self.request.GET.get('order'))
         if order:
@@ -70,9 +74,22 @@ class ProductListView(ProductMixin,
             }
             for tag in sorted(totals)
         ]
+
+        selected_brands = self.request.GET.getlist('brand')
+        totals = models.Brand.objects.annotate(total=Count('product'))
+        counts = dict(models.Brand.objects.filter(product__in=qset).values_list('name').annotate(Count('name')))
+        brands = [
+            {
+                'name': brand.name,
+                'total': brand.total,
+                'count': counts.get(brand.name, 0),
+            }
+            for brand in totals
+        ]
         self.mapper = self.get_mapper()
         return http.JsonResponse({
             'tags': tags,
+            'brands': brands,
             'products': [
                 self.mapper << obj
                 for obj in qset
