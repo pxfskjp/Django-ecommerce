@@ -81,6 +81,7 @@ class ProductListView(ProductMixin,
         brands = [
             {
                 'name': brand.name,
+                'active': brand.name in selected_brands,
                 'total': brand.total,
                 'count': counts.get(brand.name, 0),
             }
