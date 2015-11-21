@@ -23,7 +23,6 @@
     SS.url = {
         cart: "{% url 'shoestring:cart:cart' %}",
         product: "{% url 'shoestring:products:product-list' %}",
-        tags: "{% url 'shoestring:products:tag-list' %}"
     };
 </script>
 
@@ -90,11 +89,9 @@ $(function () {
         }
     });
 
-    $.getJSON(SS.url.product, function (data) {
-        ractive.set('products', data);
-    });
-    $.getJSON(SS.url.tags, function (data) {
-        ractive.set('tags', data);
+    $.getJSON(SS.url.product + document.location.search, function (data) {
+        ractive.set('tags', data.tags);
+        ractive.set('products', data.products);
     });
     cart.load();
 });
