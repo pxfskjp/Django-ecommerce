@@ -19,10 +19,30 @@ class ProductMixin:
         return super().get_queryset().enabled()
 
 
+# Allowable ordering field map
+ORDER_MAP = {
+    'price': 'price',
+    'name': 'name',
+}
+DIRECTION_MAP = {
+    'desc': '-',
+}
+
 class ProductListView(ProductMixin,
                       views.ListGetMixin,
                       views.BaseListView):
-    pass
+
+    def get_queryset(self):
+        qset = super(ProductListView, self).get_queryset()
+        # Apply filters
+        for tag in self.request.GET.getlist('tag'):
+            qset = qset.filter(tags__slug=tag)
+        # Apply sorting
+        order = ORDER_MAP.get(self.request.GET.get('order'))
+        if order:
+            direction = DIRECTION_MAP.get(self.request.GET.get('dir'), '')
+            qset = qset.order_by(direction + order)
+        return qset
 
 
 class TagListView(views.ListGetMixin,
