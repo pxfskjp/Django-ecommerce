@@ -9,8 +9,7 @@ function Cart() {
 Cart.prototype.update = function (data) {
     this.total = data.total;
     this.items = data.items;
-    // this is brutal
-    ractive.update();
+    ractive.update('cart');
 };
 Cart.prototype.load = function () {
     rpc_call(SS.url.cart, 'content', {}, this.update.bind(this));
