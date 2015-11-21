@@ -3,7 +3,7 @@ A very simple ecommerce solution for Django
 
 ## Installation
 
-Requires Python3
+Requires Python3 and Postgresql
 
 Install package and requirements:
 
@@ -30,6 +30,18 @@ Add shoestring apps to INSTALLED_APPS
 Use our User model:
 
     AUTH_USER_MODEL = 'accounts.User'
+
+Add default easy-thumbnails settings:
+
+    THUMBNAIL_ALIASES = {
+        '': {
+            'product-list': {
+                'size': (90, 120),
+                'upscale': True,
+                'crop': 'auto'
+            },
+        },
+    }
 
 Hook in the urls:
 
