@@ -5,9 +5,7 @@
         <script src="{% static 'shoestring/js/csrf.js' %}"></script>
 
         <script src="{% static 'shoestring/js/ractive.min.js' %}"></script>
-        <script src="{% static 'shoestring/js/js-signals.min.js' %}"></script>
-        <script src="{% static 'shoestring/js/hasher.min.js' %}"></script>
-        <script src="{% static 'shoestring/js/crossroads.min.js' %}"></script>
+        <script src="{% static 'shoestring/js/utils.js' %}"></script>
 
         <script src="{% static 'shoestring/uikit/js/uikit.min.js' %}"></script>
         <script src="{% static 'shoestring/uikit/js/components/grid.js' %}"></script>
@@ -94,6 +92,7 @@ $(function () {
         ractive.set('products', data.products);
     });
     cart.load();
+
 });
 
 </script>
