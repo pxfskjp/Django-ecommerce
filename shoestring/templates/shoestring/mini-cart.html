@@ -4,6 +4,7 @@
         <caption>Your Cart</caption>
         <thead>
             <tr>
+                <th></th>
                 <th>Item</th>
                 <th class="uk-text-right">Qty.</th>
                 <th class="uk-text-right">Total</th>
@@ -18,6 +19,7 @@
         <tbody>
         {{#cart.items}}
             <tr>
+                <td><i class="uk-icon uk-icon-remove" on-click="remCartItem" /></td>
                 <td>{{name}}</td>
                 <td class="uk-text-right">{{qty}}</td>
                 <td class="uk-text-right">${{ total(this) }}</td>
