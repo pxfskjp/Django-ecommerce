@@ -84,6 +84,9 @@ $(function () {
         },
         '*.addToCart': function (event) {
             cart.add(event.component.get('sku'));
+        },
+        '*.remCartItem': function (event) {
+            cart.remove(event.context.sku);
         }
     });
 
