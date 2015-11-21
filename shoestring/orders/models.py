@@ -44,7 +44,7 @@ class OrderItem(BaseProduct):
     order = models.ForeignKey('Order', related_name='items')
     quantity = models.PositiveIntegerField(default=1)
     status = models.IntegerField(choices=((x.value, x.name) for x in STATE),
-                                 default=STATE.PENDING)
+                                 default=STATE.PENDING.value)
 
     objects = managers.OrderItemQuerySet.as_manager()
 
