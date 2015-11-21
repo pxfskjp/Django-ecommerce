@@ -4,6 +4,7 @@ from urllib.parse import unquote
 from easy_thumbnails.alias import aliases
 from easy_thumbnails.exceptions import EasyThumbnailsError
 from easy_thumbnails.files import get_thumbnailer
+
 from nap.rest import views
 
 from django import http
@@ -35,8 +36,9 @@ class ProductListView(ProductMixin,
     def get_queryset(self):
         qset = super(ProductListView, self).get_queryset()
         # Apply filters
-        for tag in self.request.GET.getlist('tag'):
-            qset = qset.filter(tags__slug=tag)
+        tags = self.request.GET.getlist('tag')
+        if tags:
+            qset = qset.filter(tags__contains=tags)
         # Apply sorting
         order = ORDER_MAP.get(self.request.GET.get('order'))
         if order:
@@ -44,13 +46,38 @@ class ProductListView(ProductMixin,
             qset = qset.order_by(direction + order)
         return qset
 
+    def get(self, request):
+        '''
+        Produce a combined set of data:
+        {
+            tags: [
+                {name, slug, count, total, active},
+            ],
+            products: [...],
+        }
+        '''
+        qset = self.get_queryset()
 
-class TagListView(views.ListGetMixin,
-                  views.BaseListView):
-    mapper_class = mappers.TagMapper
-
-    def get_queryset(self):
-        return models.Product.tags.most_common()
+        selected_tags = self.request.GET.getlist('tag')
+        totals = models.Product.objects.count_tag_values('tags')
+        counts = qset.count_tag_values('tags')
+        tags = [
+            {
+                'name': tag,
+                'active': tag in selected_tags,
+                'total': totals[tag],
+                'count': counts.get(tag, 0),
+            }
+            for tag in totals
+        ]
+        self.mapper = self.get_mapper()
+        return http.JsonResponse({
+            'tags': tags,
+            'products': [
+                self.mapper << obj
+                for obj in qset
+            ]
+        })
 
 
 def thumbnail(request, alias, path):

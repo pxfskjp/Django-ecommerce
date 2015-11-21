@@ -1,6 +1,6 @@
-from taggit.managers import TaggableManager
-
 from django.db import models
+
+from array_tags.fields import TagField
 
 from . import managers
 
@@ -27,7 +27,7 @@ class BaseProduct(models.Model):
 class Product(BaseProduct):
     enabled = models.BooleanField(default=False, db_index=True)
 
-    tags = TaggableManager(blank=True)
+    tags = TagField()
 
     objects = managers.ProductQuerySet.as_manager()
 
