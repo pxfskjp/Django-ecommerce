@@ -2,8 +2,11 @@
 <ul class="uk-nav uk-nav-side">
     <li class="uk-nav-header">Tags</li>
     {{#tags}}
-    <li class="{{ active ? 'uk-active' : '' }}">
-        <a on-click="toggleTag">{{name}} <small class="uk-badge uk-badge-notification uk-text-right">{{count}}</small></a>
+    <li class="{{#active}}uk-active{{/}}">
+        <a on-click="toggleTag">
+            {{name}}
+            <small class="uk-badge uk-badge-success uk-text-right">{{count}}</small>
+        </a>
     </li>
     {{/tags}}
 </ul>
