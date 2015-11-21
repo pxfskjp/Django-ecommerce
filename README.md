@@ -3,6 +3,8 @@ A very simple ecommerce solution for Django
 
 ## Installation
 
+Requires Python3
+
 Install package and requirements:
 
   $ pip install shoestring
