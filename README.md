@@ -51,7 +51,7 @@ Hook in the urls:
 
     $ vi shop/urls.py
 
-    url(r'^api/', include('shoestring.urls', namespace='shoestring')),
+    url(r'^shop/', include('shoestring.urls', namespace='shoestring')),
 
 Prime the database
 
