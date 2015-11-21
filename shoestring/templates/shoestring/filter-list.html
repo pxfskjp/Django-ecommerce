@@ -1,13 +1,13 @@
 {% verbatim %}
 <ul class="uk-nav uk-nav-side">
-    <li class="uk-nav-header">Tags</li>
-    {{#tags}}
+    <li class="uk-nav-header">{{title}}</li>
+    {{#items}}
     <li class="{{#active}}uk-active{{/}}">
-        <a on-click="toggleTag">
+        <a on-click="toggleFilter">
             {{name}}
             <small class="uk-badge uk-badge-success uk-text-right">{{count}}/{{total}}</small>
         </a>
     </li>
-    {{/tags}}
+    {{/items}}
 </ul>
 {% endverbatim %}
