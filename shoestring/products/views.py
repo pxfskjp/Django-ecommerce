@@ -68,7 +68,7 @@ class ProductListView(ProductMixin,
                 'total': totals[tag],
                 'count': counts.get(tag, 0),
             }
-            for tag in totals
+            for tag in sorted(totals)
         ]
         self.mapper = self.get_mapper()
         return http.JsonResponse({
