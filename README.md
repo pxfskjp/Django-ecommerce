@@ -45,6 +45,8 @@ Add default easy-thumbnails settings:
         },
     }
 
+The current theme expects to find [uikit](https://github.com/uikit/uikit/releases/download/v2.23.0/uikit-2.23.0.zip) in staticfiles at shoestring/uikit/
+
 Hook in the urls:
 
     $ vi shop/urls.py
