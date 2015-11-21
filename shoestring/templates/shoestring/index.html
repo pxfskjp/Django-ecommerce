@@ -87,11 +87,7 @@ $(function () {
         }
     });
 
-    $.getJSON(SS.url.product + document.location.search, function (data) {
-        ractive.set('brands', data.brands);
-        ractive.set('tags', data.tags);
-        ractive.set('products', data.products);
-    });
+    $.getJSON(SS.url.product + document.location.search, ractive.set.bind(ractive));
     cart.load();
 
 });
