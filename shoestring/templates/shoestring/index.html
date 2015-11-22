@@ -88,7 +88,43 @@ $(function () {
         }
     });
 
-    $.getJSON(SS.url.product + document.location.search, ractive.set.bind(ractive));
+    var current_filter = document.location.search.replace(/^\?/, '');
+
+    ractive.observe('brands.*.active', function (after, before, key) {
+        if(after === undefined) { return; }
+        update_filter();
+    }.bind(ractive));
+    ractive.observe('tags.*.active', function (after, before, key) {
+        if(after === undefined) { return; }
+        update_filter();
+    }.bind(ractive));
+
+
+    function update_filter(force) {
+        var filter;
+        if(!force) {
+            terms = [];
+            ractive.get('brands').forEach(function (item) {
+                if(item.active) {
+                    terms.push('brand=' + encodeURIComponent(item.name));
+                }
+            });
+            ractive.get('tags').forEach(function (item) {
+                if(item.active) {
+                    terms.push('tag=' + encodeURIComponent(item.name));
+                }
+            });
+            filter = terms.join('&');
+        }
+        if(filter !== current_filter) {
+            // load products
+            if(!force) { current_filter = filter };
+            history.pushState({}, '', '?' + current_filter);
+            $.getJSON(SS.url.product + '?' + current_filter, ractive.set.bind(ractive));
+        }
+    }
+
+    update_filter(true);
     cart.load();
 
 });
