@@ -99,6 +99,13 @@ $(function () {
         update_filter();
     }.bind(ractive));
 
+    function get_products(filter) {
+        if(filter !== undefined) {
+            current_filter = filter.replace(/^\?/, '');
+        }
+        history.pushState({}, '', '?' + current_filter);
+        $.getJSON(SS.url.product + '?' + current_filter, ractive.set.bind(ractive));
+    };
 
     function update_filter(force) {
         var filter;
@@ -117,12 +124,10 @@ $(function () {
             filter = terms.join('&');
         }
         if(filter !== current_filter) {
-            // load products
-            if(!force) { current_filter = filter };
-            history.pushState({}, '', '?' + current_filter);
-            $.getJSON(SS.url.product + '?' + current_filter, ractive.set.bind(ractive));
+            get_products(filter);
         }
     }
+    window.onpopstate = function () { get_products(window.location.search); };
 
     update_filter(true);
     cart.load();
