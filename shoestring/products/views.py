@@ -44,7 +44,7 @@ class ProductListView(ProductMixin,
         if brands:
             qset = qset.filter(brand__name__in=brands)
         # Apply sorting
-        order = ORDER_MAP.get(self.request.GET.get('order'))
+        order = ORDER_MAP.get(self.request.GET.get('order', 'price'))
         if order:
             direction = DIRECTION_MAP.get(self.request.GET.get('dir'), '')
             qset = qset.order_by(direction + order)
@@ -55,7 +55,10 @@ class ProductListView(ProductMixin,
         Produce a combined set of data:
         {
             tags: [
-                {name, slug, count, total, active},
+                {name, count, total, active},
+            ],
+            brands: [
+                {name, count, total, active},
             ],
             products: [...],
         }
