@@ -1,33 +1,12 @@
 {% verbatim %}
-<div id="cart" class="uk-font-small">
-    <table class="uk-table uk-table-hover uk-table-striped uk-table-condensed">
-        <caption class="uk-text-center">Your Cart</caption>
-        <thead>
-            <tr>
-                <th></th>
-                <th>Item</th>
-                <th class="uk-text-right">Qty.</th>
-                <th class="uk-text-right">Total</th>
-            </tr>
-        </thead>
-        <tfoot>
-            <tr>
-                <td colspan="2"></td>
-                <td>Total</td>
-                <th class="uk-text-right">${{ dollar_fmt(cart.total) }}</th>
-            </tr>
-        </tfoot>
-        <tbody>
-        {{#cart.items}}
-            <tr>
-                <td><i class="uk-icon uk-icon-remove" on-click="remCartItem" /></td>
-                <td>{{name}}</td>
-                <td class="uk-text-right">{{qty}}</td>
-                <td class="uk-text-right">${{ total(this) }}</td>
-            </tr>
-        {{/cart.items}}
-        </tbody>
-    </table>
-
-</div>
+<ul class="uk-nav uk-nav-side">
+    <li class="uk-nav-header">Cart</li>
+{{#cart.items}}
+    <li>
+        <i class="uk-icon uk-icon-remove" on-click="remCartItem" />
+        {{qty}} x {{name}}
+        <div class="uk-text-right">${{total(this)}}</div>
+    </li>
+{{/}}
+</ul>
 {% endverbatim %}
