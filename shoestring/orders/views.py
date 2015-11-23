@@ -1,9 +1,10 @@
 
 from nap import http
-from nap.rest import views
+from nap.rest import views, auth
 
 from . import mappers, models
 from ..cart.cart import Cart
+from ..payment.models import Payment
 
 
 class OrderMixin:
@@ -12,6 +13,7 @@ class OrderMixin:
 
 
 class OrderListView(OrderMixin,
+                    auth.LoginRequiredMixin,
                     views.ListGetMixin,
                     views.BaseListView):
 
@@ -22,3 +24,16 @@ class OrderListView(OrderMixin,
         order = models.Order.from_cart(request.user, cart)
         request.session['order_id'] = order.pk
         return self.get(request)
+
+    def delete(self, request):
+        order = get_object_or_404(models.Order,
+                                  user=self.request.user,
+                                  pk=request.session.get('order_id')
+                                  )
+        if order.payment_set.filter(state=Payment.STATE.APPROVED).exists():
+            # Can't delete an order with a payment
+            return http.Conflict()
+
+        order.delete()
+        request.session.pop('order_id')
+        return http.NoContent()
