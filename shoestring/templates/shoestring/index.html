@@ -9,6 +9,18 @@
 
         <script src="{% static 'shoestring/uikit/js/uikit.min.js' %}"></script>
 
+<script id="modal" type="text/ractive">
+{% verbatim %}
+<div class='modal-background' on-tap='close' intro='fade' outro='fade'>
+  <div class='modal-outer'>
+    <div class='modal'>
+      {{>modalContent}}
+    </div>
+  </div>
+</div>
+{% endverbatim %}
+</script>
+
 <script id="layout" type="text/ractive">{% include 'shoestring/layout.html' %}</script>
 <script id="cart" type="text/ractive">{% include 'shoestring/cart.html' %}</script>
 <script id="mini-cart" type="text/ractive">{% include 'shoestring/mini-cart.html' %}</script>
@@ -28,6 +40,7 @@
         <script src="{% static 'shoestring/js/cart.js' %}"></script>
         <script src="{% static 'shoestring/js/products.js' %}"></script>
         <script src="{% static 'shoestring/js/filter-list.js' %}"></script>
+        <script src="{% static 'shoestring/js/modal.js' %}"></script>
 
 <script>
 var ractive;
@@ -54,6 +67,7 @@ $(function () {
             }
         },
         components: {
+            modal: Modal,
             cart: FullCart,
             'mini-cart': MiniCart,
             'product-list': ProductList,
