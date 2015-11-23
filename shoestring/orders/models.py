@@ -27,7 +27,7 @@ class Order(models.Model):
             for item in cart.values():
                 prod = item.product
                 data = {
-                    field.name: getattr(prod, field)
+                    field.name: getattr(prod, field.name)
                     for field in BaseProduct._meta.get_fields()
                 }
                 OrderItem.objects.create(order=order, **data)
