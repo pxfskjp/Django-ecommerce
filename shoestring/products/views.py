@@ -5,10 +5,9 @@ from easy_thumbnails.alias import aliases
 from easy_thumbnails.exceptions import EasyThumbnailsError
 from easy_thumbnails.files import get_thumbnailer
 
-from nap.rest import views
-
-from django.db.models import Count
 from django import http
+from django.db.models import Count
+from nap.rest import views
 
 from . import mappers, models
 
@@ -29,6 +28,7 @@ ORDER_MAP = {
 DIRECTION_MAP = {
     'desc': '-',
 }
+
 
 class ProductListView(ProductMixin,
                       views.ListGetMixin,

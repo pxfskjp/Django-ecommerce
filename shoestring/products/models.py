@@ -1,6 +1,5 @@
-from django.db import models
-
 from array_tags.fields import TagField
+from django.db import models
 
 from . import managers
 

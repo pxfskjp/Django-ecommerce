@@ -1,5 +1,3 @@
-from django.db import models
-
 from array_tags.managers import TagQuerySet
 
 
