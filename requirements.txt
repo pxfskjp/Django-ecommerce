@@ -2,4 +2,4 @@ Django~=1.8
 Pillow~=3.0
 django-nap==0.14.8
 easy-thumbnails==2.2
-django-array-tags==0.1.1
+django-array-tags==0.1.3
