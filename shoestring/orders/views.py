@@ -4,7 +4,7 @@ from nap.rest import views, auth
 
 from . import mappers, models
 from ..cart.cart import Cart
-from ..payment.models import Payment
+from ..payments.models import Payment
 
 
 class OrderMixin:
