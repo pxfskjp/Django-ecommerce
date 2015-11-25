@@ -9,18 +9,7 @@
 
         <script src="{% static 'shoestring/uikit/js/uikit.min.js' %}"></script>
 
-<script id="modal" type="text/ractive">
-{% verbatim %}
-<div class='modal-background' on-tap='close' intro='fade' outro='fade'>
-  <div class='modal-outer'>
-    <div class='modal'>
-      {{>modalContent}}
-    </div>
-  </div>
-</div>
-{% endverbatim %}
-</script>
-
+<script id="modal" type="text/ractive">{% include 'shoestring/modal.html' %}</script>
 <script id="layout" type="text/ractive">{% include 'shoestring/layout.html' %}</script>
 <script id="cart" type="text/ractive">{% include 'shoestring/cart.html' %}</script>
 <script id="mini-cart" type="text/ractive">{% include 'shoestring/mini-cart.html' %}</script>
@@ -53,6 +42,7 @@ $(function () {
         template: '#layout',
         data: {
             products: [ ],
+            product: undefined,
             tags: [ ],
             brands: [ ],
             facets: [ ],
@@ -77,7 +67,7 @@ $(function () {
     });
     ractive.on({
         'product-list.showProduct': function (event) {
-            // hasher.setHash('view/' + event.component.get('sku'));
+            ractive.set('product', event.component.get());
         },
         '*.addToCart': function (event) {
             cart.add(event.component.get('sku'));
@@ -134,6 +124,46 @@ $(function () {
 });
 
 </script>
+
+<style type="text/css">
+.modal-background {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  padding: 0.5em;
+  text-align: center;
+  -moz-box-sizing: border-box; box-sizing: border-box;
+}
+
+.modal-outer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.modal {
+  position: relative;
+  background-color: white;
+  padding: 2em;
+  box-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+  margin: 0 auto;
+  display: inline-block;
+  max-width: 100%;
+  max-height: 100%;
+  overflow-y: auto;
+  -moz-box-sizing: border-box; box-sizing: border-box;
+}
+
+.modal-button {
+  text-align: center;
+  background-color: rgb(70,70,180);
+  color: white;
+  padding: 0.5em 1em;
+  display: inline-block;
+  cursor: pointer;
+}
+</style>
+
 
     </head>
     <body class="uk-height-1-1">
