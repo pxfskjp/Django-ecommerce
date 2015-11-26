@@ -32,6 +32,7 @@ var FullCart = Ractive.extend({
     template: '#cart',
     isolated: true,
     magic: true,
+    append: true,
     data: {
         total: function (item) { return dollar_fmt(item.qty * item.price); },
         dollar_fmt: dollar_fmt

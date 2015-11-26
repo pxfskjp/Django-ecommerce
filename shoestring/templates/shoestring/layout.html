@@ -1,6 +1,12 @@
 {% verbatim %}
+<div id="full-cart" class="uk-offcanvas">
+    <aside class="uk-offcanvas-bar">
+        <cart cart="{{cart}}" />
+    </aside>
+</div>
 <div class="uk-grid">
     <aside class="uk-width-1-6">
+        <button type="button" class="uk-button" data-uk-offcanvas="{target: '#full-cart'}">View Cart</button>
         <filter-list title="Tags" items="{{tags}}" />
         <filter-list title="Brands" items="{{brands}}" />
         <mini-cart cart="{{cart}}" />
