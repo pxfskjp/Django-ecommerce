@@ -1,6 +1,6 @@
 
 from nap import http
-from nap.rest import views, auth
+from nap.rest import auth, views
 
 from . import mappers, models
 from ..cart.cart import Cart

@@ -1,4 +1,5 @@
 from django.utils.functional import cached_property
+
 from nap import http, rpc
 
 from .cart import Cart

@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-import array_tags.fields
 from django.db import migrations, models
+
+import array_tags.fields
 
 
 class Migration(migrations.Migration):
