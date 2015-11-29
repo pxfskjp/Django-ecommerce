@@ -16,7 +16,9 @@
         <tr>
             <td colspan="3">Total</td>
             <th class="uk-text-right">${{ dollar_fmt(cart.total) }}</th>
-            <td></td>
+            <td>
+                <button type="button" class="uk-button" on-click="checkOut">Check Out</button>
+            </td>
         </tr>
     </tfoot>
     <tbody>
