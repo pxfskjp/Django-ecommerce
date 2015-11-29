@@ -16,6 +16,7 @@
         <script id="product-list" type="text/ractive">{% include 'shoestring/product-list.html' %}</script>
         <script id="product-detail" type="text/ractive">{% include 'shoestring/product-detail.html' %}</script>
         <script id="filter-list" type="text/ractive">{% include 'shoestring/filter-list.html' %}</script>
+        <script id="order" type="text/ractive">{% include 'shoestring/order.html' %}</script>
 
 <script>
     var SS = {};
@@ -29,6 +30,7 @@
         <script src="{% static 'shoestring/js/cart.js' %}"></script>
         <script src="{% static 'shoestring/js/products.js' %}"></script>
         <script src="{% static 'shoestring/js/filter-list.js' %}"></script>
+        <script src="{% static 'shoestring/js/order.js' %}"></script>
 
 <script>
 var ractive;
@@ -45,7 +47,8 @@ $(function () {
             tags: [ ],
             brands: [ ],
             facets: [ ],
-            cart: cart
+            cart: cart,
+            order: undefined,
         },
         computed: {
             // Allows lookup of Product by SKU
