@@ -39,20 +39,20 @@ var FullCart = Ractive.extend({
     },
     oninit: function () {
         this.on({
-            'incCartItem': function (ev) {
-                this.cart.quantity(ev.context.sku, ev.context.qty + 1);
+            incCartItem: function (ev) {
+                this.get('cart').quantity(ev.context.sku, ev.context.qty + 1);
             }.bind(this),
-            'decCartItem': function (ev) {
+            decCartItem: function (ev) {
                 if(ev.context.qty > 1) {
                     this.get('cart').quantity(ev.context.sku, ev.context.qty - 1);
                 } else {
                     this.get('cart').remove(ev.context.sku);
                 }
             }.bind(this),
-            'remCartItem': function (ev) {
+            remCartItem: function (ev) {
                 this.get('cart').remove(ev.context.sku);
             }.bind(this),
-            'clearCart': function (ev) {
+            clearCart: function (ev) {
                 this.get('cart').clear();
             }.bind(this)
         });
