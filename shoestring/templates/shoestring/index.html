@@ -6,10 +6,11 @@
         <script src="{% static 'shoestring/js/csrf.js' %}"></script>
 
         <script src="{% static 'shoestring/js/vendor/ractive.min.js' %}"></script>
+        <script src="{% static 'shoestring/js/rpc.js' %}"></script>
         <script src="{% static 'shoestring/js/utils.js' %}"></script>
 
         <script src="{% static 'shoestring/uikit/js/uikit.min.js' %}"></script>
-
+{# Templates #}
         <script id="layout" type="text/ractive">{% include 'shoestring/layout.html' %}</script>
         <script id="cart" type="text/ractive">{% include 'shoestring/cart.html' %}</script>
         <script id="mini-cart" type="text/ractive">{% include 'shoestring/mini-cart.html' %}</script>
@@ -25,8 +26,7 @@
         product: "{% url 'shoestring:products:product-list' %}",
     };
 </script>
-
-        <script src="{% static 'shoestring/js/rpc.js' %}"></script>
+{# Models #}
         <script src="{% static 'shoestring/js/cart.js' %}"></script>
         <script src="{% static 'shoestring/js/products.js' %}"></script>
         <script src="{% static 'shoestring/js/filter-list.js' %}"></script>
