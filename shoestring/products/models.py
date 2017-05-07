@@ -15,7 +15,7 @@ class Brand(models.Model):
 class BaseProduct(models.Model):
     sku = models.SlugField(unique=True)
     name = models.CharField(max_length=200)
-    brand = models.ForeignKey('Brand')
+    brand = models.ForeignKey('products.Brand')
     description = models.TextField(blank=True)
 
     price = models.DecimalField(max_digits=8, decimal_places=2)
