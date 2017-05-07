@@ -1,6 +1,7 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from nap import http
-from nap.rest import auth, views
+from nap.rest import views
 
 from . import mappers, models
 from ..cart.cart import Cart
@@ -13,7 +14,7 @@ class OrderMixin:
 
 
 class OrderListView(OrderMixin,
-                    auth.LoginRequiredMixin,
+                    LoginRequiredMixin,
                     views.ListGetMixin,
                     views.BaseListView):
 
