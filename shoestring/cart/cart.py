@@ -17,7 +17,7 @@ class CartItem(object):
     def product(self):
         return Product.objects.get(sku=self.sku)
 
-    @cached_property
+    @property
     def total(self):
         return self.product.price * self.qty
 
@@ -26,6 +26,7 @@ class Cart(OrderedDict):
 
     @classmethod
     def from_session(cls, session):
+        # XXX This should pre-fetch products in a single query
         return cls(
             (item['sku'], CartItem(**item))
             for item in session.get('cart', [])
