@@ -1,0 +1,18 @@
+[[source]]
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+Django = "*"
+django-array-tags = "*"
+django-nap = "*"
+easy-thumbnails = "*"
+Pillow = "*"
+"psycopg2-binary" = "*"
+
+[dev-packages]
+uWSGI = "*"
+
+[requires]
+python_version = "3.6"
