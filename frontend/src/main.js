@@ -24,6 +24,37 @@ class ShoestringStore extends Store {
 		})
 		.then(data => this.set(data))
 	}
+
+	loadCart() {
+		request.rpc(SS.url.cart, 'content')
+		.then( data => this.set({cart: data}) )
+	}
+
+	clearCart() {
+		request.rpc(SS.url.cart, 'clear')
+		.then( data => this.set({cart: data}) )
+	}
+
+	addCartItem(item) {
+		request.rpc(SS.url.cart, 'add', {sku: item.sku, qty: 1})
+		.then( data => this.set({cart: data}) )
+	}
+
+	decCartItem(item) {
+		request.rpc(SS.url.cart, 'quantity', {sku: item.sku, qty: item.qty - 1})
+		.then( data => this.set({cart: data}) )
+	}
+
+	incCartItem(item) {
+		request.rpc(SS.url.cart, 'quantity', {sku: item.sku, qty: item.qty + 1})
+		.then( data => this.set({cart: data}) )
+	}
+
+	remCartItem(item) {
+		request.rpc(SS.url.cart, 'quantity', {sku: item.sku, qty: 0})
+		.then( data => this.set({cart: data}) )
+	}
+
 }
 const store = new ShoestringStore({
 	products: [],
@@ -38,7 +69,10 @@ request.request.commonHeaders['X-CSRFToken'] = getCookie('csrftoken');
 
 var app = new App({
 	target: document.body,
-	store
+	store,
 });
+
+store.loadProducts()
+store.loadCart()
 
 export default app;

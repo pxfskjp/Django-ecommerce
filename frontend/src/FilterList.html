@@ -1,21 +1,11 @@
 <ul>
   <li>{{title}}</li>
   {{#each items as item}}
-  <li class="{{ (item.active) ? 'active' : '' }}" on:click="toggleFilter(item)">
+  <li class="{{ (item.active) ? 'active' : '' }}" on:click="fire('toggle-filter', {item: item})">
     {{item.name}} <span>{{item.count}}/{{item.total}}</span>
   </li>
   {{/each}}
 </ul>
-
-<script>
-  export default {
-    methods: {
-      toggleFilter(item) {
-        this.root.store.toggleFilter(this.get('key'), item.name)
-      }
-    }
-  }
-</script>
 
 <style>
   ul {

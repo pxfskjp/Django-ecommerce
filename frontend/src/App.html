@@ -5,16 +5,21 @@
 	<ProductList
 		bind:products="$products"
 		on:show-product="showProduct(event.product)"
-		on:cart-add="addToCart(event.product)"
+		on:cart-add="store.addCartItem(event.product)"
 	/>
 </main>
 <aside>
-	<FilterList title="Brands" key="brands" bind:items="$brands" />
-	<FilterList title="Tags" key="tags" bind:items="$tags" />
+	<FilterList title="Brands" bind:items="$brands" on:toggle-filter="store.toggleFilter('brands', event.item.name)" />
+	<FilterList title="Tags" bind:items="$tags" on:toggle-filter="store.toggleFilter('tags', event.item.name)" />
 </aside>
 
 <Modal bind:show="showCart">
-	<Cart bind:cart="$cart" />
+	<Cart bind:cart="$cart"
+		on:cart-clear="store.clearCart()"
+		on:cart-dec="store.decCartItem(event.item)"
+		on:cart-inc="store.incCartItem(event.item)"
+		on:cart-remove="store.remCartItem(event.item)"
+	/>
 </Modal>
 
 <Modal bind:show="showProduct">
@@ -48,9 +53,6 @@
 			},
 			showProduct(product) {
 				this.set({currentProduct: product})
-			},
-			addToCart(product) {
-
 			}
 		},
 		components: {

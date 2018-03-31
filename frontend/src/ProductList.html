@@ -1,4 +1,4 @@
-{{#each products as product}}
+{{#each products as product @sku}}
 <article on:click="fire('show-product', {product})">
   <header>
     <!-- <img src="{{ image(product.images[0]) }}"> -->
@@ -7,7 +7,7 @@
   </header>
   <div>
     ${{product.price}}
-    <svg on:click="fire('cart-add', product)" class="icon-cart"><use xlink:href="#icon-cart"></use></svg>
+    <svg on:clickme="fire('cart-add', {product})" class="icon-cart"><use xlink:href="#icon-cart"></use></svg>
   </div>
 </article>
 {{/each}}
@@ -16,15 +16,25 @@
 	import request from "./request.js";
 
     export default {
+        events: {
+            clickme(node, callback) {
+                let handler = ev => {
+                    ev.stopPropagation();
+                    callback(ev)
+                };
+                node.addEventListener('click', handler);
+                return {
+                    destroy() {
+                        node.removeEventListener('click', handler);
+                    }
+                }
+            }
+        },
         helpers: {
             image: (url) => {}
         },
-        oncreate() {
-            this.root.store.loadProducts()
-        },
         data() {
             return {
-                products: [],
                 brands: [],
                 tags: []
             }

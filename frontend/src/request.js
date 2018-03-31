@@ -40,6 +40,10 @@ function request (url, options = {}) {
                         .replace(/%20/g, '+');
                     data = undefined;
                 }
+                else if (method == 'POST') {
+                    // XXX Detect content type?
+                    data = JSON.stringify(data);
+                }
             }
 
             xhr.open(method, url);
@@ -62,7 +66,10 @@ function rpc(url, method, data) {
     return request(url, {
         data,
         method: 'POST',
-        headers: {'X-RPC-Action': method}
+        headers: {
+            'X-RPC-Action': method,
+            'Content-Type': 'application/json'
+        }
     })
         .then(xhr => JSON.parse(xhr.responseText))
 }

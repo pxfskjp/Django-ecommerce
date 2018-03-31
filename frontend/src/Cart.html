@@ -7,7 +7,7 @@
 			<th>Unit</th>
 			<th>Total</th>
 			<th>
-				<svg on:click="clearCart()" class="icon-recycle"><use xlink:href="#icon-recycle"></use></svg>
+				<svg on:click="fire('cart-clear')" class="icon-recycle"><use xlink:href="#icon-recycle"></use></svg>
 			</th>
 		</tr>
 	</thead>
@@ -25,13 +25,13 @@
 		<tr>
 			<td>{{item.name}}</td>
 			<td>
-				<svg on:click="decCartItem(item)" class="icon-minus"><use xlink:href="#icon-minus"></use></svg>
+				<svg on:click="fire('cart-dec', {item})" class="icon-minus"><use xlink:href="#icon-minus"></use></svg>
 				{{ item.qty }}
-				<svg on:click="incCartItem(item)" class="icon-plus"><use xlink:href="#icon-plus"></use></svg>
+				<svg on:click="fire('cart-dec', {item})" class="icon-plus"><use xlink:href="#icon-plus"></use></svg>
 			</td>
 			<td>${{ dollarFormat(item.price) }}</td>
 			<td>${{ itemTotal(item) }}</td>
-			<td><svg on:click="remCartItem(item)" class="icon-remove"><use xlink:href="#icon-remove"></use></svg></td>
+			<td><svg on:click="fire('cart-remove', {item})" class="icon-remove"><use xlink:href="#icon-remove"></use></svg></td>
 		</tr>
 		{{/each}}
 	</tbody>
@@ -43,31 +43,9 @@
 	let dollarFormat = (value) => new Number(value).toFixed(2);
 
 	export default {
-		oncreate() {
-			request.rpc(SS.url.cart, 'content')
-			.then(data => this.set({cart: data}))
-		},
 		helpers: {
 			dollarFormat,
 			itemTotal: (item) => dollarFormat(item.qty * item.price)
-		},
-		methods: {
-			clearCart() {
-				request.rpc(SS.url.cart, 'clear')
-				.then(data => { this.set({cart: data}); })
-			},
-			decCartItem(item) {
-				request.rpc(SS.url.cart, 'quantity', {sku: item.sku, qty: item.qty - 1})
-				.then(data => { this.set({cart: data}); })
-			},
-			incCartItem(item) {
-				request.rpc(SS.url.cart, 'quantity', {sku: item.sku, qty: item.qty + 1})
-				.then(data => { this.set({cart: data}); })
-			},
-			remCartItem(item) {
-				request.rpc(SS.url.cart, 'quantity', {sku: item.sku, qty: 0})
-				.then(data => { this.set({cart: data}); })
-			}
 		},
 		computed: {
 			total: cart => cart.items.reduce((x, y) => x + (y.qty * y.price), 0.0)
