@@ -1,4 +1,27 @@
 <article>
   <h2>{{product.name}}</h2>
   <p>{{product.description}}</p>
+  <div>
+    ${{product.price}}
+    <svg on:clickme="fire('cart-add', {product})" class="icon-cart"><use xlink:href="#icon-cart"></use></svg>
+  </div>
 </article>
+
+<script>
+  export default {
+    events: {
+      clickme(node, callback) {
+        let handler = ev => {
+          ev.stopPropagation();
+          callback(ev)
+        };
+        node.addEventListener('click', handler);
+        return {
+          destroy() {
+            node.removeEventListener('click', handler);
+          }
+        }
+      }
+    },
+  }
+</script>

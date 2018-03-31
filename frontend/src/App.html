@@ -24,7 +24,10 @@
 
 <Modal bind:show="showProduct">
 	{{#if showProduct}}
-	<ProductDetail bind:product="currentProduct" />
+	<ProductDetail
+		bind:product="currentProduct"
+		on:cart-add="store.addCartItem(event.product)"
+	/>
 	{{/if}}
 </Modal>
 
