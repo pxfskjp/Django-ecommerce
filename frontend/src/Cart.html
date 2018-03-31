@@ -6,7 +6,9 @@
 			<th>Qty.</th>
 			<th>Unit</th>
 			<th>Total</th>
-			<th><i on:click="clearCart()" class="icon-recycle" /></th>
+			<th>
+				<svg on:click="clearCart()" class="icon-recycle"><use xlink:href="#icon-recycle"></use></svg>
+			</th>
 		</tr>
 	</thead>
 	<tfoot>
@@ -23,13 +25,13 @@
 		<tr>
 			<td>{{item.name}}</td>
 			<td>
-				<i on:click="decCartItem(item)" class="icon-minus" />
+				<svg on:click="decCartItem(item)" class="icon-minus"><use xlink:href="#icon-minus"></use></svg>
 				{{ item.qty }}
-				<i on:click="incCartItem(item)" class="icon-plus" />
+				<svg on:click="incCartItem(item)" class="icon-plus"><use xlink:href="#icon-plus"></use></svg>
 			</td>
 			<td>${{ dollarFormat(item.price) }}</td>
 			<td>${{ itemTotal(item) }}</td>
-			<td><i on:click="remCartItem(item)" class="icon-remove" /></td>
+			<td><svg on:click="remCartItem(item)" class="icon-remove"><use xlink:href="#icon-remove"></use></svg></td>
 		</tr>
 		{{/each}}
 	</tbody>

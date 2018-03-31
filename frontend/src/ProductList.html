@@ -1,5 +1,5 @@
 {{#each products as product}}
-<article on:click="showProduct()">
+<article on:click="fire('show-product', {product})">
   <header>
     <!-- <img src="{{ image(product.images[0]) }}"> -->
     <h4 >{{product.name}}</h4>
@@ -7,7 +7,7 @@
   </header>
   <div>
     ${{product.price}}
-    <button type="button" on:click="addToCart(product)" class="icon-cart-plus"></button>
+    <svg on:click="fire('cart-add', product)" class="icon-cart"><use xlink:href="#icon-cart"></use></svg>
   </div>
 </article>
 {{/each}}
@@ -28,10 +28,6 @@
                 brands: [],
                 tags: []
             }
-        },
-        methods: {
-            addToCart() {},
-            showProduct() {}
         }
     }
 </script>

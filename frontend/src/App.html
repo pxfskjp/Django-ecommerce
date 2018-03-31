@@ -2,7 +2,11 @@
 	<button type="button" on:click="toggleCart()">Show Cart ({{ $cart.items.length }})</button>
 </nav>
 <main>
-	<ProductList bind:products="$products" />
+	<ProductList
+		bind:products="$products"
+		on:show-product="showProduct(event.product)"
+		on:cart-add="addToCart(event.product)"
+	/>
 </main>
 <aside>
 	<FilterList title="Brands" key="brands" bind:items="$brands" />
@@ -41,6 +45,12 @@
 				this.set({
 					showCart: !this.get('showCart')
 				});
+			},
+			showProduct(product) {
+				this.set({currentProduct: product})
+			},
+			addToCart(product) {
+
 			}
 		},
 		components: {
