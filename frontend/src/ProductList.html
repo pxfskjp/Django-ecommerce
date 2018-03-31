@@ -1,7 +1,9 @@
 {{#each products as product @sku}}
 <article on:click="fire('show-product', {product})">
   <header>
-    <!-- <img src="{{ image(product.images[0]) }}"> -->
+    {{#if product.images.length }}
+    <img src="{{ image(product.images[0]) }}" alt="">
+    {{/if}}
     <h4 >{{product.name}}</h4>
     <div>{{product.brand}}</div>
   </header>
@@ -31,7 +33,7 @@
             }
         },
         helpers: {
-            image: (url) => {}
+            image: (url) => { return SS.url.media + url; }
         },
         data() {
             return {
