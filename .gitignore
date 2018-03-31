@@ -2,3 +2,6 @@
 env/*
 proj/*
 *.swp
+node_modules/
+frontend/public
+.vscode
