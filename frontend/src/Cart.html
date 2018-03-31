@@ -27,7 +27,7 @@
 			<td>
 				<svg on:click="fire('cart-dec', {item})" class="icon-minus"><use xlink:href="#icon-minus"></use></svg>
 				{{ item.qty }}
-				<svg on:click="fire('cart-dec', {item})" class="icon-plus"><use xlink:href="#icon-plus"></use></svg>
+				<svg on:click="fire('cart-inc', {item})" class="icon-plus"><use xlink:href="#icon-plus"></use></svg>
 			</td>
 			<td>${{ dollarFormat(item.price) }}</td>
 			<td>${{ itemTotal(item) }}</td>
