@@ -1,0 +1,14 @@
+body, html {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: grid;
+    grid-template-rows: 3em 1fr;
+    grid-template-columns: 20vw 1fr;
+    grid-template-areas:
+        "header header"
+        "sidebar  main"
+        ;
+}
