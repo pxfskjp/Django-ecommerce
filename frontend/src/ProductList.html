@@ -1,0 +1,39 @@
+{{#each products as product}}
+<article on:click="showProduct()">
+  <header>
+    <!-- <img src="{{ image(product.images[0]) }}"> -->
+    <h4 >{{product.name}}</h4>
+    <div>{{product.brand}}</div>
+  </header>
+  <div>
+    ${{product.price}}
+    <button type="button" on:click="addToCart(product)" class="icon-cart-plus"></button>
+  </div>
+</article>
+{{/each}}
+
+<script>
+    import FilterList from "./FilterList.html";
+	import request from "./request.js";
+
+    export default {
+        helpers: {
+            image: (url) => {}
+        },
+        oncreate() {
+            request.json(SS.url.product)
+            .then(data => this.store.set(data))
+        },
+        data() {
+            return {
+                products: [],
+                brands: [],
+                tags: []
+            }
+        },
+        methods: {
+            addToCart() {},
+            showProduct() {}
+        }
+    }
+</script>

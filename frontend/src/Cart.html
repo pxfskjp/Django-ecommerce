@@ -1,0 +1,74 @@
+<table>
+	<caption>Your Cart</caption>
+	<thead>
+		<tr>
+			<th>Item</th>
+			<th>Qty.</th>
+			<th>Unit</th>
+			<th>Total</th>
+			<th><i on:click="clearCart()" class="icon-recycle" /></th>
+		</tr>
+	</thead>
+	<tfoot>
+		<tr>
+			<td colspan="3">Total</td>
+			<th>${{ dollarFormat(total) }}</th>
+			<td>
+				<button type="button" on:click="fire('checkout')">Check Out</button>
+			</td>
+		</tr>
+	</tfoot>
+	<tbody>
+		{{#each cart.items as item}}
+		<tr>
+			<td>{{item.name}}</td>
+			<td>
+				<i on:click="decCartItem(item)" class="icon-minus" />
+				{{ item.qty }}
+				<i on:click="incCartItem(item)" class="icon-plus" />
+			</td>
+			<td>${{ dollarFormat(item.price) }}</td>
+			<td>${{ itemTotal(item) }}</td>
+			<td><i on:click="remCartItem(item)" class="icon-remove" /></td>
+		</tr>
+		{{/each}}
+	</tbody>
+</table>
+
+<script>
+	import request from "./request.js";
+
+	let dollarFormat = (value) => new Number(value).toFixed(2);
+
+	export default {
+		oncreate() {
+			request.rpc(SS.url.cart, 'content')
+			.then(data => this.set({cart: data}))
+		},
+		helpers: {
+			dollarFormat,
+			itemTotal: (item) => dollarFormat(item.qty * item.price)
+		},
+		methods: {
+			clearCart() {
+				request.rpc(SS.url.cart, 'clear')
+				.then(data => { this.set({cart: data}); })
+			},
+			decCartItem(item) {
+				request.rpc(SS.url.cart, 'quantity', {sku: item.sku, qty: item.qty - 1})
+				.then(data => { this.set({cart: data}); })
+			},
+			incCartItem(item) {
+				request.rpc(SS.url.cart, 'quantity', {sku: item.sku, qty: item.qty + 1})
+				.then(data => { this.set({cart: data}); })
+			},
+			remCartItem(item) {
+				request.rpc(SS.url.cart, 'quantity', {sku: item.sku, qty: 0})
+				.then(data => { this.set({cart: data}); })
+			}
+		},
+		computed: {
+			total: cart => cart.items.reduce((x, y) => x + (y.qty * y.price), 0.0)
+		}
+	}
+</script>

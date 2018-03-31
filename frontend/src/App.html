@@ -1,0 +1,48 @@
+<nav>
+	<button type="button" on:click="toggleCart()">Show Cart ({{ $cart.items.length }})</button>
+</nav>
+<main>
+	<ProductList bind:products="$products" />
+</main>
+<aside>
+	<FilterList title="Brands" bind:items="$brands" />
+	<FilterList title="Tags" bind:items="$tags" />
+</aside>
+
+<Modal bind:show="showCart">
+	<Cart bind:cart="$cart" />
+</Modal>
+
+<script>
+	import Modal from "./Modal.html";
+	import Cart from "./Cart.html";
+	import ProductList from "./ProductList.html";
+	import FilterList from "./FilterList.html";
+
+	export default {
+		data () {
+			return {
+				showCart: false,
+			}
+		},
+		methods: {
+			toggleCart () {
+				this.set({
+					showCart: ~this.get('showCart')
+				});
+			}
+		},
+		components: {
+			ProductList,
+			Modal,
+			Cart,
+			FilterList
+		}
+	}
+</script>
+
+<style>
+	nav { grid-area: header; }
+	main { grid-area: main; }
+	aside { grid-area: sidebar; }
+</style>
