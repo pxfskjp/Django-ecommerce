@@ -1,19 +1,18 @@
-from nap.datamapper import ModelDataMapper, field
-
+from nap import mapper
 from . import models
 
 
-class ProductMapper(ModelDataMapper):
+class ProductMapper(mapper.ModelMapper):
     class Meta:
         model = models.Product
         fields = '__all__'
         exclude = ('enabled',)
 
-    @field
+    @mapper.field
     def brand(self):
         return self.brand.name
 
-    @field
+    @mapper.field
     def images(self):
         return [
             i.image.name

@@ -8,3 +8,8 @@ parse_qs = function (qs) {
     });
     return data;
 }
+
+// a Promise helper to decode JSON response
+function decode_json (response) {
+    return response.json()
+}

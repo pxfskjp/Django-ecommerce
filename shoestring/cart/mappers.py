@@ -1,14 +1,14 @@
-from nap.datamapper import DataMapper, Field, field
+from nap import mapper
 
 
-class CartItemMapper(DataMapper):
-    sku = Field('sku')
-    qty = Field('qty')
+class CartItemMapper(mapper.Mapper):
+    sku = mapper.Field('sku')
+    qty = mapper.Field('qty')
 
-    @field
+    @mapper.field
     def name(self):
         return self.product.name
 
-    @field
+    @mapper.field
     def price(self):
         return float(self.product.price)

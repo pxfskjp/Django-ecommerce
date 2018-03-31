@@ -28,13 +28,14 @@ class ProductDiscountQuerySet(models.QuerySet):
 
     def for_product(self, product):
         now = timezone.now()
-        self.filter(
+        for disc in self.current().filter(
             include_tags__unnest__in=product.tags,
             include_brand=product.brand,
         ).exclude(
             exclude_tags__unnest__in=product.tags,
             exclude_brand=product.brand,
-        )
+        ):
+
 
 
 class ProductDiscount(BaseDiscount):

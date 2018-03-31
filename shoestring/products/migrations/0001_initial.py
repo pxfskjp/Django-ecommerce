@@ -40,7 +40,7 @@ class Migration(migrations.Migration):
                 ('price', models.DecimalField(max_digits=8, decimal_places=2)),
                 ('enabled', models.BooleanField(default=False, db_index=True)),
                 ('tags', array_tags.fields.TagField(size=None, base_field=models.CharField(max_length=50), blank=True)),
-                ('brand', models.ForeignKey(to='products.Brand')),
+                ('brand', models.ForeignKey(to='products.Brand', on_delete=models.CASCADE)),
             ],
             options={
                 'abstract': False,
@@ -49,6 +49,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='image',
             name='product',
-            field=models.ForeignKey(related_name='images', to='products.Product'),
+            field=models.ForeignKey(related_name='images', to='products.Product', on_delete=models.CASCADE),
         ),
     ]

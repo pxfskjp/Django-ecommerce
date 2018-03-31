@@ -1,9 +1,9 @@
-from nap import datamapper
+from nap import mapper
 
 from . import models
 
 
-class UserMapper(datamapper.ModelDataMapper):
+class UserMapper(mapper.ModelMapper):
 
     class Meta:
         model = models.User

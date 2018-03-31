@@ -10,7 +10,7 @@ from ..products.models import BaseProduct
 
 
 class Order(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
     created = models.DateTimeField(default=timezone.now)
 
     shipping_address = models.TextField(blank=True)
@@ -41,7 +41,7 @@ class OrderItem(BaseProduct):
         PENDING = 0
         SHIPPED = 1
 
-    order = models.ForeignKey('Order', related_name='items')
+    order = models.ForeignKey('Order', related_name='items', on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
     status = models.IntegerField(choices=((x.value, x.name) for x in STATE),
                                  default=STATE.PENDING.value)

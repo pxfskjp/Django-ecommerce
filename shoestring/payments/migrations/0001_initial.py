@@ -20,7 +20,7 @@ class Migration(migrations.Migration):
                 ('state', models.IntegerField(default=0, choices=[(-1, 'Cancelled'), (0, 'Pending'), (1, 'Declined'), (2, 'Approved')])),
                 ('amount', models.DecimalField(max_digits=8, decimal_places=2)),
                 ('reason', models.CharField(max_length=200, blank=True)),
-                ('order', models.ForeignKey(to='orders.Order')),
+                ('order', models.ForeignKey(to='orders.Order', on_delete=models.PROTECT)),
             ],
         ),
     ]

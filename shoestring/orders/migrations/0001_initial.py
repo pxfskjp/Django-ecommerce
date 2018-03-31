@@ -22,7 +22,7 @@ class Migration(migrations.Migration):
                 ('shipping_address', models.TextField(blank=True)),
                 ('shipping_suburb', models.CharField(max_length=100, blank=True)),
                 ('shipping_postcode', models.CharField(max_length=6, blank=True)),
-                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
+                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.PROTECT)),
             ],
         ),
         migrations.CreateModel(
@@ -35,8 +35,8 @@ class Migration(migrations.Migration):
                 ('price', models.DecimalField(max_digits=8, decimal_places=2)),
                 ('quantity', models.PositiveIntegerField(default=1)),
                 ('status', models.IntegerField(default=0, choices=[(-1, 'CANCELLED'), (0, 'PENDING'), (1, 'SHIPPED')])),
-                ('brand', models.ForeignKey(to='products.Brand')),
-                ('order', models.ForeignKey(related_name='items', to='orders.Order')),
+                ('brand', models.ForeignKey(to='products.Brand', on_delete=models.CASCADE)),
+                ('order', models.ForeignKey(related_name='items', to='orders.Order', on_delete=models.CASCADE)),
             ],
             options={
                 'abstract': False,

@@ -8,11 +8,15 @@ urlpatterns = [
         {'template_name': 'shoestring/index.html'},
         name='index'),
     url(r'^cart/',
-        include('shoestring.cart.urls', namespace='cart')),
+        include(('shoestring.cart.urls', 'shoestring'), namespace='cart')
+    ),
     url(r'^accounts/',
-        include('shoestring.accounts.urls', namespace='accounts')),
+        include(('shoestring.accounts.urls', 'shoestring'), namespace='accounts')
+    ),
     url(r'^products/',
-        include('shoestring.products.urls', namespace='products')),
+        include(('shoestring.products.urls', 'shoestring'), namespace='products')
+    ),
     url(r'^order/',
-        include('shoestring.orders.urls', namespace='orders')),
+        include(('shoestring.orders.urls', 'shoestring'), namespace='orders')
+    ),
 ]

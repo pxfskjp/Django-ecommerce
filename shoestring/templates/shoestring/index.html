@@ -1,139 +1,17 @@
-<html>{% load staticfiles %}
+<!DOCTYPE html>{% load staticfiles %}
+<html>
     <head>
-        <link rel="stylesheet" type="text/css" href="{% static 'shoestring/uikit/css/uikit.min.css' %}">
-        <link rel="stylesheet" type="text/css" href="{% static 'shoestring/css/shoestring.css' %}">
-        <script src="{% static 'shoestring/js/vendor/jquery.min.js' %}"></script>
-        <script src="{% static 'shoestring/js/csrf.js' %}"></script>
-
-        <script src="{% static 'shoestring/js/vendor/ractive.min.js' %}"></script>
-        <script src="{% static 'shoestring/js/rpc.js' %}"></script>
-        <script src="{% static 'shoestring/js/utils.js' %}"></script>
-
-        <script src="{% static 'shoestring/uikit/js/uikit.min.js' %}"></script>
-{# Templates #}
-        <script id="layout" type="text/ractive">{% include 'shoestring/layout.html' %}</script>
-        <script id="cart" type="text/ractive">{% include 'shoestring/cart.html' %}</script>
-        <script id="mini-cart" type="text/ractive">{% include 'shoestring/mini-cart.html' %}</script>
-        <script id="product-list" type="text/ractive">{% include 'shoestring/product-list.html' %}</script>
-        <script id="product-detail" type="text/ractive">{% include 'shoestring/product-detail.html' %}</script>
-        <script id="filter-list" type="text/ractive">{% include 'shoestring/filter-list.html' %}</script>
-        <script id="order" type="text/ractive">{% include 'shoestring/order.html' %}</script>
-
-<script>
-    var SS = {};
-    SS.url = {
-        cart: "{% url 'shoestring:cart:cart' %}",
-        product: "{% url 'shoestring:products:product-list' %}",
-    };
-</script>
-{# Models #}
-        <script src="{% static 'shoestring/js/cart.js' %}"></script>
-        <script src="{% static 'shoestring/js/products.js' %}"></script>
-        <script src="{% static 'shoestring/js/filter-list.js' %}"></script>
-        <script src="{% static 'shoestring/js/order.js' %}"></script>
-
-<script>
-var ractive;
-$(function () {
-
-    var cart = new Cart();
-
-    ractive = new Ractive({
-        el: '#shop',
-        template: '#layout',
-        data: {
-            products: [ ],
-            product: undefined,
-            tags: [ ],
-            brands: [ ],
-            facets: [ ],
-            cart: cart,
-            order: undefined,
-        },
-        computed: {
-            // Allows lookup of Product by SKU
-            product_map: function () {
-                var o = {};
-                this.get('products').forEach(function (rec) { o[rec.sku] = rec; });
-                return o;
-            }
-        },
-        components: {
-            'cart': FullCart,
-            'mini-cart': MiniCart,
-            'product-list': ProductList,
-            'product-detail': ProductDetail,
-            'filter-list': FilterList
-        }
-    });
-    ractive.on({
-        'product-list.showProduct': function (event) {
-            ractive.set('product', event.component.get());
-        },
-        '*.addToCart': function (event) {
-            cart.add(event.component.get('sku'));
-        }
-    });
-
-    var current_filter = document.location.search.replace(/^\?/, '');
-
-    ractive.observe('brands.*.active', function (after, before, key) {
-        if(after === undefined) { return; }
-        update_filter();
-    }.bind(ractive));
-    ractive.observe('tags.*.active', function (after, before, key) {
-        if(after === undefined) { return; }
-        update_filter();
-    }.bind(ractive));
-
-    function get_products(filter) {
-        if(filter !== undefined) {
-            current_filter = filter.replace(/^\?/, '');
-        }
-        history.pushState({}, '', '?' + current_filter);
-        $.getJSON(SS.url.product + '?' + current_filter, ractive.set.bind(ractive));
-    };
-
-    function update_filter(force) {
-        var filter;
-        if(!force) {
-            terms = [];
-            ractive.get('brands').forEach(function (item) {
-                if(item.active) {
-                    terms.push('brand=' + encodeURIComponent(item.name));
-                }
-            });
-            ractive.get('tags').forEach(function (item) {
-                if(item.active) {
-                    terms.push('tag=' + encodeURIComponent(item.name));
-                }
-            });
-            filter = terms.join('&');
-        }
-        if(filter !== current_filter) {
-            get_products(filter);
-        }
-    }
-    window.onpopstate = function () { get_products(window.location.search); };
-
-    update_filter(true);
-    cart.load();
-
-});
-
-</script>
-
-
+        <link rel="stylesheet" type="text/css" href="{% static 'shoestring/global.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'shoestring/bundle.css' %}">
+        <script>
+var SS = {};
+SS.url = {
+    cart: "{% url 'shoestring:cart:cart' %}",
+    product: "{% url 'shoestring:products:product-list' %}",
+};
+        </script>
     </head>
-    <body class="uk-height-1-1">
-        <nav class="uk-navbar uk-navbar-attached">
-            <ul class="uk-navbar-nav">
-                <li class="uk-navbar-brand">The Store</li>
-            </ul>
-        </nav>
-
-        <main id="shop" class="uk-container uk-container-center">
-        </main>
-
+    <body>
+        <script src="{% static 'shoestring/bundle.js' %}"></script>
     </body>
 </html>
