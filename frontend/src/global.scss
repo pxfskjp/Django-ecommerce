@@ -4,6 +4,8 @@ body, html {
 }
 
 body {
+    width: 100vw;
+    height: 100vh;
     display: grid;
     grid-template-rows: 3em 1fr;
     grid-template-columns: 20vw 1fr;
