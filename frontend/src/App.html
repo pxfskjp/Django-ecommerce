@@ -13,17 +13,28 @@
 	<Cart bind:cart="$cart" />
 </Modal>
 
+<Modal bind:show="showProduct">
+	{{#if showProduct}}
+	<ProductDetail bind:product="currentProduct" />
+	{{/if}}
+</Modal>
+
 <script>
 	import Modal from "./Modal.html";
 	import Cart from "./Cart.html";
 	import ProductList from "./ProductList.html";
+	import ProductDetail from "./ProductDetail.html";
 	import FilterList from "./FilterList.html";
 
 	export default {
 		data () {
 			return {
 				showCart: false,
+				currentProduct: undefined,
 			}
+		},
+		computed: {
+			showProduct: (currentProduct) => currentProduct !== undefined
 		},
 		methods: {
 			toggleCart () {
@@ -33,6 +44,7 @@
 			}
 		},
 		components: {
+			ProductDetail,
 			ProductList,
 			Modal,
 			Cart,
