@@ -13,7 +13,6 @@
 {{/each}}
 
 <script>
-    import FilterList from "./FilterList.html";
 	import request from "./request.js";
 
     export default {
@@ -21,8 +20,7 @@
             image: (url) => {}
         },
         oncreate() {
-            request.json(SS.url.product)
-            .then(data => this.store.set(data))
+            this.root.store.loadProducts()
         },
         data() {
             return {

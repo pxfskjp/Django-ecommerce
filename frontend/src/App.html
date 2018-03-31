@@ -5,8 +5,8 @@
 	<ProductList bind:products="$products" />
 </main>
 <aside>
-	<FilterList title="Brands" bind:items="$brands" />
-	<FilterList title="Tags" bind:items="$tags" />
+	<FilterList title="Brands" key="brands" bind:items="$brands" />
+	<FilterList title="Tags" key="tags" bind:items="$tags" />
 </aside>
 
 <Modal bind:show="showCart">
@@ -28,7 +28,7 @@
 		methods: {
 			toggleCart () {
 				this.set({
-					showCart: ~this.get('showCart')
+					showCart: !this.get('showCart')
 				});
 			}
 		},
