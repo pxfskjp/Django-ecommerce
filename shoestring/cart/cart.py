@@ -9,9 +9,9 @@ Product = apps.get_model('products.Product')
 
 class CartItem(object):
 
-    def __init__(self, sku, qty):
+    def __init__(self, sku, quantity):
         self.sku = sku
-        self.qty = qty
+        self.quantity = quantity
 
     @cached_property
     def product(self):
@@ -19,7 +19,7 @@ class CartItem(object):
 
     @property
     def total(self):
-        return self.product.price * self.qty
+        return self.product.price * self.quantity
 
 
 class Cart(OrderedDict):
@@ -34,7 +34,7 @@ class Cart(OrderedDict):
 
     def save(self, session):
         session['cart'] = [
-            {'sku': item.sku, 'qty': item.qty}
+            {'sku': item.sku, 'quantity': item.quantity}
             for item in self.values()
         ]
 
@@ -43,8 +43,8 @@ class Cart(OrderedDict):
             return 0
         return sum([item.total for item in self.values()])
 
-    def add(self, sku, qty=1):
+    def add(self, sku, quantity=1):
         if sku not in self:
-            self[sku] = CartItem(sku=sku, qty=qty)
+            self[sku] = CartItem(sku=sku, quantity=quantity)
         else:
-            self[sku].qty += qty
+            self[sku].quantity += quantity

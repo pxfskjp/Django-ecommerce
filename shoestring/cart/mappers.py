@@ -3,7 +3,7 @@ from nap import mapper
 
 class CartItemMapper(mapper.Mapper):
     sku = mapper.Field('sku')
-    qty = mapper.Field('qty')
+    quantity = mapper.Field('quantity')
 
     @mapper.field
     def name(self):

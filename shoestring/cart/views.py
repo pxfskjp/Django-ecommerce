@@ -40,25 +40,25 @@ class CartView(rpc.RPCView):
         return self._render()
 
     @rpc.method
-    def add(self, sku, qty):
+    def add(self, sku, quantity):
         '''
         Add an Item to the cart
         '''
-        self.cart.add(sku, qty)
+        self.cart.add(sku, quantity)
         self.save()
         return self._render()
 
     @rpc.method
-    def quantity(self, sku, qty):
+    def quantity(self, sku, quantity):
         '''
         Update quantity
         '''
-        if qty == 0:
+        if quantity == 0:
             self.cart.pop(sku)
             self.save()
         else:
             try:
-                self.cart[sku].qty = qty
+                self.cart[sku].quantity = quantity
                 self.save()
             except KeyError:
                 raise ValueError('Item not in cart', sku)
