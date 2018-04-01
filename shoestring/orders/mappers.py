@@ -3,7 +3,7 @@ from nap.utils.ripper import Ripper
 
 from . import models
 
-ItemRipper = Ripper('sku', 'name', 'description', 'quantity', 'price', 'status', name='brand.name')
+ItemRipper = Ripper('sku', 'name', 'description', 'quantity', 'price', 'status', brand='brand.name')
 
 
 class OrderMapper(mapper.ModelMapper):

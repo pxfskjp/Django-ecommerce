@@ -25,13 +25,13 @@ class CheckoutView(OrderMixin,
 
     def get_object(self, queryset=None):
         obj_id = self.request.session.get('order_id')
-        return self.model.objects.get(obj_id)
+        return self.model.objects.get(pk=obj_id)
 
     def post(self, request):
         # If there's an existing order, cancel its items
         order_id = request.session.get('order_id')
         if order_id:
-            models.OrderItem.object.filter(
+            models.OrderItem.objects.filter(
                 order__pk=order_id
             ).update(
                 status=models.OrderItem.STATE.CANCELLED
@@ -43,7 +43,7 @@ class CheckoutView(OrderMixin,
 
         order = models.Order.from_cart(request.user, cart)
         request.session['order_id'] = order.pk
-        return self.single_response(request, object=order)
+        return self.single_response(object=order)
 
     def delete(self, request):
         order = get_object_or_404(
