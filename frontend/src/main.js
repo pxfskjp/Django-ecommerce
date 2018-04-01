@@ -55,6 +55,11 @@ class ShoestringStore extends Store {
 		.then( data => this.set({cart: data}) )
 	}
 
+	createOrder() {
+		request.json(SS.url.order, 'POST')
+		.then( data => this.set({order: data}))
+	}
+
 }
 const store = new ShoestringStore({
 	products: [],
@@ -62,7 +67,8 @@ const store = new ShoestringStore({
 	brands: [],
 	cart: {
 		items: []
-	}
+	},
+	order: undefined
 })
 
 request.request.commonHeaders['X-CSRFToken'] = getCookie('csrftoken');

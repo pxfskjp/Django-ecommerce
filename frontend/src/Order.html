@@ -1,0 +1,49 @@
+<table>
+  <caption> Your Order </caption>
+  <thead>
+    <tr>
+      <th> Item </th>
+      <th> Qty </th>
+      <th> Unit </th>
+      <th> Total </th>
+    </tr>
+  </thead>
+  <tfoot>
+    <tr>
+      <th> Sub Total </th>
+      <th> {{sub_total}} </th>
+    </tr>
+    <tr>
+      <th> Discounts </th>
+      <th> {{discounts}} </th>
+    </tr>
+    <tr>
+      <th> Shipping </th>
+      <th> {{shipping}} </th>
+    </tr>
+    <tr>
+      <th> Total </th>
+      <th> {{total}} </th>
+    </tr>
+  </tfoot>
+  <tbody>
+    {{#each order.items as item}}
+    <tr>
+      <td>{{item.name}}</td>
+      <td>{{item.qty}}</td>
+      <td>${{dollarFormat(item.price)}}</td>
+      <td>${{dollarFormat(item.total)}}</td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+
+<script>
+  import { dollarFormat } from "./utils.js";
+
+  export default {
+    helpers: {
+      dollarFormat
+    }
+  }
+</script>

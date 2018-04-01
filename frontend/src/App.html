@@ -19,6 +19,7 @@
 		on:cart-dec="store.decCartItem(event.item)"
 		on:cart-inc="store.incCartItem(event.item)"
 		on:cart-remove="store.remCartItem(event.item)"
+		on:check-out="store.createOrder()"
 	/>
 </Modal>
 
@@ -31,12 +32,19 @@
 	{{/if}}
 </Modal>
 
+<Modal bind:show="showOrder">
+	{{#if order }}
+	<Order bind:order="$order" />
+	{{/if}}
+</Modal>
+
 <script>
-	import Modal from "./Modal.html";
 	import Cart from "./Cart.html";
-	import ProductList from "./ProductList.html";
-	import ProductDetail from "./ProductDetail.html";
 	import FilterList from "./FilterList.html";
+	import Modal from "./Modal.html";
+	import Order from "./Order.html";
+	import ProductDetail from "./ProductDetail.html";
+	import ProductList from "./ProductList.html";
 
 	export default {
 		data () {
@@ -46,7 +54,8 @@
 			}
 		},
 		computed: {
-			showProduct: (currentProduct) => currentProduct !== undefined
+			showProduct: (currentProduct) => currentProduct !== undefined,
+			showOrder: (order) => order !== undefined
 		},
 		methods: {
 			toggleCart () {
@@ -59,11 +68,12 @@
 			}
 		},
 		components: {
-			ProductDetail,
-			ProductList,
-			Modal,
 			Cart,
-			FilterList
+			FilterList,
+			Modal,
+			Order,
+			ProductDetail,
+			ProductList
 		}
 	}
 </script>
