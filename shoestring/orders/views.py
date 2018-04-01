@@ -27,10 +27,11 @@ class OrderListView(OrderMixin,
         return self.get(request)
 
     def delete(self, request):
-        order = get_object_or_404(models.Order,
-                                  user=self.request.user,
-                                  pk=request.session.get('order_id')
-                                  )
+        order = get_object_or_404(
+            models.Order,
+            user=self.request.user,
+            pk=request.session.get('order_id')
+        )
         if order.payment_set.filter(state=Payment.STATE.APPROVED).exists():
             # Can't delete an order with a payment
             return http.Conflict()
