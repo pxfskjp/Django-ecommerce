@@ -3,6 +3,8 @@ from urllib.parse import unquote
 
 from django import http
 from django.db.models import Count
+from django.contrib.postgres.search import SearchQuery, SearchVector
+
 from easy_thumbnails.alias import aliases
 from easy_thumbnails.exceptions import EasyThumbnailsError
 from easy_thumbnails.files import get_thumbnailer
@@ -36,6 +38,14 @@ class ProductListView(ProductMixin,
 
     def get_queryset(self):
         qset = super(ProductListView, self).get_queryset()
+        # Apply search
+        q = self.request.GET.get('q')
+        if q:
+            qset = qset.annotate(
+                search=SearchVector('sku', 'name', 'description', 'brand__name')
+            ).filter(
+                search=SearchQuery(q)
+            )
         # Apply filters
         tags = self.request.GET.getlist('tag')
         if tags:
