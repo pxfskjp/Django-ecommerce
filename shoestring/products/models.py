@@ -13,7 +13,7 @@ class Brand(models.Model):
 
 
 class BaseProduct(models.Model):
-    sku = models.SlugField(unique=True)
+    sku = models.SlugField()
     name = models.CharField(max_length=200)
     brand = models.ForeignKey('products.Brand', on_delete=models.CASCADE)
     description = models.TextField(blank=True)
@@ -31,6 +31,10 @@ class Product(BaseProduct):
 
     objects = managers.ProductQuerySet.as_manager()
 
+    class Meta:
+        unique_together = (
+            ('sku',)
+        )
 
 class Image(models.Model):
     product = models.ForeignKey('Product', related_name='images', on_delete=models.CASCADE)
