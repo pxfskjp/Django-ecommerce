@@ -2,7 +2,7 @@
 <article on:click="fire('show-product', {product})">
   <header>
     {{#if product.images.length }}
-    <img src="{{ image(product.images[0]) }}" alt="">
+    <img src="{{ imageUrl('product-list', product.images[0]) }}" alt="">
     {{/if}}
     <h4 >{{product.name}}</h4>
     <div>{{product.brand}}</div>
@@ -16,6 +16,7 @@
 
 <script>
 	import request from "./request.js";
+    import { imageUrl } from "./utils.js";
 
     export default {
         events: {
@@ -33,7 +34,7 @@
             }
         },
         helpers: {
-            image: (url) => { return SS.url.media + url; }
+            imageUrl
         },
         data() {
             return {
