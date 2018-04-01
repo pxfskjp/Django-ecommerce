@@ -34,7 +34,7 @@ class Migration(migrations.Migration):
                 ('description', models.TextField(blank=True)),
                 ('price', models.DecimalField(max_digits=8, decimal_places=2)),
                 ('quantity', models.PositiveIntegerField(default=1)),
-                ('status', models.IntegerField(default=0, choices=[(-1, 'CANCELLED'), (0, 'PENDING'), (1, 'SHIPPED')])),
+                ('status', models.IntegerField(default=0, choices=[(-1, 'Cancelled'), (0, 'Pending'), (1, 'Shipped')])),
                 ('brand', models.ForeignKey(to='products.Brand', on_delete=models.CASCADE)),
                 ('order', models.ForeignKey(related_name='items', to='orders.Order', on_delete=models.CASCADE)),
             ],

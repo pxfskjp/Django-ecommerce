@@ -1,4 +1,4 @@
-from enum import IntEnum
+from lenum import LabeledEnum
 
 from django.conf import settings
 from django.db import models, transaction
@@ -36,15 +36,14 @@ class Order(models.Model):
 
 class OrderItem(BaseProduct):
 
-    class STATE(IntEnum):
+    class STATE(LabeledEnum):
         CANCELLED = -1
         PENDING = 0
         SHIPPED = 1
 
     order = models.ForeignKey('Order', related_name='items', on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
-    status = models.IntegerField(choices=((x.value, x.name) for x in STATE),
-                                 default=STATE.PENDING.value)
+    status = models.IntegerField(choices=STATE, default=STATE.PENDING)
 
     objects = managers.OrderItemQuerySet.as_manager()
 
