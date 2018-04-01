@@ -59,7 +59,7 @@ request.commonHeaders = {};
 
 function json (url, options) {
     return request(url, options)
-        .then(xhr => JSON.parse(xhr.responseText))
+    .then(xhr => JSON.parse(xhr.responseText))
 }
 
 function rpc(url, method, data) {
@@ -71,7 +71,7 @@ function rpc(url, method, data) {
             'Content-Type': 'application/json'
         }
     })
-        .then(xhr => JSON.parse(xhr.responseText))
+    .then(xhr => (xhr.status == 204) ? '' : JSON.parse(xhr.responseText))
 }
 
 export default {

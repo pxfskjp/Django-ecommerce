@@ -4,11 +4,11 @@ from nap import http
 from nap.rest import views
 from nap.shortcuts import get_object_or_404
 
-from . import mappers, models
 from ..cart.cart import Cart
 from ..payments.models import Payment
 from ..utils import Patterns
 
+from . import mappers, models
 
 urlpatterns = Patterns()
 
@@ -25,7 +25,7 @@ class CheckoutView(OrderMixin,
 
     def get_object(self, queryset=None):
         obj_id = self.request.session.get('order_id')
-        return self.model.objects.get(pk=obj_id)
+        return get_object_or_404(self.model, pk=obj_id)
 
     def post(self, request):
         # If there's an existing order, cancel its items

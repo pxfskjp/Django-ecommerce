@@ -34,7 +34,10 @@
 
 <Modal bind:show="showOrder">
 	{{#if $order }}
-	<Order bind:order="$order" />
+	<Order
+		bind:order="$order"
+		on:order-cancel="store.cancelOrder()"
+	/>
 	{{/if}}
 </Modal>
 

@@ -54,7 +54,8 @@ class ShoestringStore extends Store {
 
 	loadOrder() {
 		return request.json(SS.url.order)
-		.then( data => this.set({order: data}))
+		.then( data => this.set({order: data}) )
+		.catch( err => this.set({order: undefined}) )
 	}
 
 	createOrder() {
@@ -62,6 +63,10 @@ class ShoestringStore extends Store {
 		.then( data => this.set({order: data}) )
 	}
 
+	cancelOrder() {
+		request.json(SS.url.order, {method: 'DELETE'})
+		.then( data => this.set({order: undefined}) )
+	}
 }
 
 export {

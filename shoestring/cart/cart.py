@@ -27,10 +27,15 @@ class Cart(OrderedDict):
     @classmethod
     def from_session(cls, session):
         # XXX This should pre-fetch products in a single query
-        return cls(
-            (item['sku'], CartItem(**item))
-            for item in session.get('cart', [])
-        )
+        try:
+            return cls(
+                (item['sku'], CartItem(**item))
+                for item in session.get('cart', [])
+            )
+        except TypeError:
+            # Bad cart data
+            session.pop('cart')
+            return cls()
 
     def save(self, session):
         session['cart'] = [
