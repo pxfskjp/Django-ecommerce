@@ -8,32 +8,22 @@
     <div>{{product.brand}}</div>
   </header>
   <div>
-    ${{product.price}}
+    ${{ dollarFormat(product.price) }}
     <svg on:clickme="fire('cart-add', {product})" class="icon-cart"><use xlink:href="#icon-cart"></use></svg>
   </div>
 </article>
 {{/each}}
 
 <script>
-	import request from "./request.js";
-    import { imageUrl } from "./utils.js";
+    import { clickme } from "./utils/events.js";
+    import { dollarFormat, imageUrl } from "./utils/helpers.js";
 
     export default {
         events: {
-            clickme(node, callback) {
-                let handler = ev => {
-                    ev.stopPropagation();
-                    callback(ev)
-                };
-                node.addEventListener('click', handler);
-                return {
-                    destroy() {
-                        node.removeEventListener('click', handler);
-                    }
-                }
-            }
+            clickme
         },
         helpers: {
+            dollarFormat,
             imageUrl
         },
         data() {

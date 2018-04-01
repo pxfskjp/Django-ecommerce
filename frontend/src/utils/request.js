@@ -74,4 +74,8 @@ function rpc(url, method, data) {
         .then(xhr => JSON.parse(xhr.responseText))
 }
 
-export default {request, json, rpc};
+export default {
+    request,
+    json,
+    rpc
+};

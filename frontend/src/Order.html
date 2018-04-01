@@ -25,6 +25,15 @@
       <th colspan=3> Total </th>
       <th> ${{dollarFormat(total)}} </th>
     </tr>
+    <tr>
+      <td>
+        <button type="button" on:click="fire('order-cancel')">Cancel</button>
+      </td>
+      <td colspan=2>&nbsp;</td>
+      <td>
+        <button type="button" on:click="fire('order-pay')">Confirm</button>
+      </td>
+    </tr>
   </tfoot>
   <tbody>
     {{#each order.items as item}}
@@ -39,15 +48,15 @@
 </table>
 
 <script>
-  import { dollarFormat, itemTotal } from "./utils.js";
+  import { dollarFormat, itemTotal } from "./utils/helpers.js";
 
   export default {
     helpers: {
       dollarFormat,
       itemTotal
     },
-		computed: {
-			total: order => order.items.reduce((x, y) => x + (y.quantity * y.price), 0.0)
-		}
+    computed: {
+      total: order => order.items.reduce((x, y) => x + (y.quantity * y.price), 0.0)
+    }
   }
 </script>
