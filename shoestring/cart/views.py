@@ -2,10 +2,16 @@ from django.utils.functional import cached_property
 
 from nap import http, rpc
 
+from ..utils import Patterns
+
 from .cart import Cart
 from .mappers import CartItemMapper
 
 
+urlpatterns = Patterns()
+
+
+@urlpatterns(r'^$', name='cart')
 class CartView(rpc.RPCView):
 
     def get(self, request):

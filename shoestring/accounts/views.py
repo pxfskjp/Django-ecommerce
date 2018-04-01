@@ -5,8 +5,13 @@ from nap import http
 from nap.rest import views
 
 from . import mappers
+from ..utils import Patterns
 
 
+urlpatterns = Patterns()
+
+
+@urlpatterns(r'^login/$')
 class LoginView(views.BaseObjectView):
     mapper_class = mappers.UserMapper
 

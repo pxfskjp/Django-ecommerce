@@ -13,15 +13,15 @@ urlpatterns = [
         },
         name='index'),
     url(r'^cart/',
-        include(('shoestring.cart.urls', 'shoestring'), namespace='cart')
+        include(('shoestring.cart.views', 'shoestring'), namespace='cart')
     ),
     url(r'^accounts/',
-        include(('shoestring.accounts.urls', 'shoestring'), namespace='accounts')
+        include(('shoestring.accounts.views', 'shoestring'), namespace='accounts')
     ),
     url(r'^products/',
-        include(('shoestring.products.urls', 'shoestring'), namespace='products')
+        include(('shoestring.products.views', 'shoestring'), namespace='products')
     ),
     url(r'^order/',
-        include(('shoestring.orders.urls', 'shoestring'), namespace='orders')
+        include(('shoestring.orders.views', 'shoestring'), namespace='orders')
     ),
 ]

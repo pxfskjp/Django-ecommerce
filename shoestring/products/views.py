@@ -11,7 +11,11 @@ from easy_thumbnails.files import get_thumbnailer
 
 from nap.rest import views
 
+from ..utils import Patterns
+
 from . import mappers, models
+
+urlpatterns = Patterns()
 
 
 class ProductMixin:
@@ -32,12 +36,13 @@ DIRECTION_MAP = {
 }
 
 
+@urlpatterns(r'^$', name='product-list')
 class ProductListView(ProductMixin,
                       views.ListGetMixin,
                       views.BaseListView):
 
     def get_queryset(self):
-        qset = super(ProductListView, self).get_queryset()
+        qset = super().get_queryset()
         # Apply search
         q = self.request.GET.get('q')
         if q:
@@ -111,6 +116,7 @@ class ProductListView(ProductMixin,
         })
 
 
+@urlpatterns(r'^(?P<alias>[\w-]+)/(?P<path>.*)$', name='thumbnail')
 def thumbnail(request, alias, path):
     '''Redirect to a thumbnail as configured with GET params'''
 
