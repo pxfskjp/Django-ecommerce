@@ -19,7 +19,7 @@
 		on:cart-dec="store.decCartItem(event.item)"
 		on:cart-inc="store.incCartItem(event.item)"
 		on:cart-remove="store.remCartItem(event.item)"
-		on:check-out="store.createOrder()"
+		on:check-out="onCheckout()"
 	/>
 </Modal>
 
@@ -33,7 +33,7 @@
 </Modal>
 
 <Modal bind:show="showOrder">
-	{{#if order }}
+	{{#if $order }}
 	<Order bind:order="$order" />
 	{{/if}}
 </Modal>
@@ -55,7 +55,7 @@
 		},
 		computed: {
 			showProduct: (currentProduct) => currentProduct !== undefined,
-			showOrder: (order) => order !== undefined
+			showOrder: ($order) => $order !== undefined
 		},
 		methods: {
 			toggleCart () {
@@ -65,6 +65,11 @@
 			},
 			showProduct(product) {
 				this.set({currentProduct: product})
+			},
+			onCheckout() {
+				this.store.createOrder().then(
+					order => this.set({showCart: false})
+				)
 			}
 		},
 		components: {

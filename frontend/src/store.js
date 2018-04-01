@@ -32,27 +32,33 @@ class ShoestringStore extends Store {
 	}
 
 	addCartItem(item) {
-		request.rpc(SS.url.cart, 'add', {sku: item.sku, qty: 1})
+		request.rpc(SS.url.cart, 'add', {sku: item.sku, quantity: 1})
 		.then( data => this.set({cart: data}) )
 	}
 
 	decCartItem(item) {
-		request.rpc(SS.url.cart, 'quantity', {sku: item.sku, qty: item.qty - 1})
+		request.rpc(SS.url.cart, 'quantity', {sku: item.sku, quantity: item.quantity - 1})
 		.then( data => this.set({cart: data}) )
 	}
 
 	incCartItem(item) {
-		request.rpc(SS.url.cart, 'quantity', {sku: item.sku, qty: item.qty + 1})
+		request.rpc(SS.url.cart, 'quantity', {sku: item.sku, quantity: item.quantity + 1})
 		.then( data => this.set({cart: data}) )
 	}
 
 	remCartItem(item) {
-		request.rpc(SS.url.cart, 'quantity', {sku: item.sku, qty: 0})
+		request.rpc(SS.url.cart, 'quantity', {sku: item.sku, quantity: 0})
 		.then( data => this.set({cart: data}) )
 	}
 
+
+	loadOrder() {
+		return request.json(SS.url.order)
+		.then( data => this.set({order: data}))
+	}
+
 	createOrder() {
-		request.json(SS.url.order, {method: 'POST'})
+		return request.json(SS.url.order, {method: 'POST'})
 		.then( data => this.set({order: data}) )
 	}
 

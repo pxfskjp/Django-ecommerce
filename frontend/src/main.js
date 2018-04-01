@@ -24,5 +24,6 @@ var app = new App({
 
 store.loadProducts()
 store.loadCart()
+store.loadOrder()
 
 export default app;

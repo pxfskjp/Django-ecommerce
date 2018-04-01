@@ -9,41 +9,45 @@
     </tr>
   </thead>
   <tfoot>
-    <tr>
+    <!-- <tr colspan=3>
       <th> Sub Total </th>
       <th> {{sub_total}} </th>
     </tr>
-    <tr>
+    <tr colspan=3>
       <th> Discounts </th>
       <th> {{discounts}} </th>
     </tr>
-    <tr>
+    <tr colspan=3>
       <th> Shipping </th>
       <th> {{shipping}} </th>
-    </tr>
+    </tr> -->
     <tr>
-      <th> Total </th>
-      <th> {{total}} </th>
+      <th colspan=3> Total </th>
+      <th> ${{dollarFormat(total)}} </th>
     </tr>
   </tfoot>
   <tbody>
     {{#each order.items as item}}
     <tr>
       <td>{{item.name}}</td>
-      <td>{{item.qty}}</td>
+      <td>{{item.quantity}}</td>
       <td>${{dollarFormat(item.price)}}</td>
-      <td>${{dollarFormat(item.total)}}</td>
+      <td>${{itemTotal(item)}}</td>
     </tr>
     {{/each}}
   </tbody>
 </table>
 
 <script>
-  import { dollarFormat } from "./utils.js";
+  import { dollarFormat, itemTotal } from "./utils.js";
 
   export default {
     helpers: {
-      dollarFormat
-    }
+      dollarFormat,
+      itemTotal
+    },
+		computed: {
+			total: order => order.items.reduce((x, y) => x + (y.quantity * y.price), 0.0)
+		}
   }
 </script>

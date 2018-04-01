@@ -26,7 +26,7 @@
 			<td>{{item.name}}</td>
 			<td>
 				<svg on:click="fire('cart-dec', {item})" class="icon-minus"><use xlink:href="#icon-minus"></use></svg>
-				{{ item.qty }}
+				{{ item.quantity }}
 				<svg on:click="fire('cart-inc', {item})" class="icon-plus"><use xlink:href="#icon-plus"></use></svg>
 			</td>
 			<td>${{ dollarFormat(item.price) }}</td>
@@ -39,15 +39,15 @@
 
 <script>
 	import request from "./request.js";
-	import { dollarFormat } from "./utils.js";
+	import { dollarFormat, itemTotal } from "./utils.js";
 
 	export default {
 		helpers: {
 			dollarFormat,
-			itemTotal: (item) => dollarFormat(item.qty * item.price)
+			itemTotal
 		},
 		computed: {
-			total: cart => cart.items.reduce((x, y) => x + (y.qty * y.price), 0.0)
+			total: cart => cart.items.reduce((x, y) => x + (y.quantity * y.price), 0.0)
 		}
 	}
 </script>
