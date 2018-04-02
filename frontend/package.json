@@ -8,10 +8,10 @@
     "rollup-plugin-commonjs": "^9.1.0",
     "rollup-plugin-node-resolve": "^3.0.3",
     "rollup-plugin-scss": "^0.4.0",
-    "rollup-plugin-svelte": "^4.0.0",
+    "rollup-plugin-svelte": "^4.1.0",
     "rollup-plugin-uglify": "^3.0.0",
     "serve": "^6.5.1",
-    "svelte": "^1.56.1"
+    "svelte": "^1.60.0"
   },
   "scripts": {
     "build": "rollup -c",
