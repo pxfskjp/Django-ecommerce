@@ -33,10 +33,10 @@
         },
         "django-nap": {
             "hashes": [
-                "sha256:a83eedf3d8a4cc51e44f03ee881614262cddcf78ab3b12eccfd671edeb4bc909"
+                "sha256:70f8856d08bd9c9d467575f4d56d769d7cd7236b0c4f1866a49184b21145ebde"
             ],
             "index": "pypi",
-            "version": "==0.30.10"
+            "version": "==0.30.11"
         },
         "easy-thumbnails": {
             "hashes": [
