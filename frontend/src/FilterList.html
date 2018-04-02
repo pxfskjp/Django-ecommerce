@@ -1,5 +1,5 @@
+<h2>{{ title }}</h2>
 <ul>
-  <li>{{title}}</li>
   {{#each items as item}}
   <li class="{{ (item.active) ? 'active' : '' }}" on:click="fire('toggle-filter', {item: item})">
     {{item.name}} <span>{{item.count}}/{{item.total}}</span>
@@ -12,9 +12,6 @@
     list-style: none;
     margin: 1em;
     padding: 0;
-  }
-  li:first-of-type {
-    font-weight: bold;
   }
   li.active {
     background-color: lightBlue;

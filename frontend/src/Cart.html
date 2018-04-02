@@ -6,18 +6,14 @@
 			<th>Qty.</th>
 			<th>Unit</th>
 			<th>Total</th>
-			<th>
-				<svg on:click="fire('cart-clear')" class="icon-recycle"><use xlink:href="#icon-recycle"></use></svg>
-			</th>
+			<th><svg on:click="fire('cart-clear')" class="icon-recycle"><use xlink:href="#icon-recycle"></use></svg></th>
 		</tr>
 	</thead>
 	<tfoot>
 		<tr>
 			<td colspan="3">Total</td>
 			<th>${{ dollarFormat(total) }}</th>
-			<td>
-				<button type="button" on:click="fire('check-out')">Check Out</button>
-			</td>
+			<td><button type="button" on:click="fire('check-out')">Check Out</button></td>
 		</tr>
 	</tfoot>
 	<tbody>
