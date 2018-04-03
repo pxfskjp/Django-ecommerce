@@ -1,13 +1,29 @@
 # shoestring
-A very simple ecommerce solution for Django
+A very simple Single Page App eCommerce solution for Django
 
 ## Installation
 
 Requires Python3 and Postgresql
 
+### Frontend
+
+Go into the frontend/ directory
+
+Install required Node packages:
+
+    $ npm install
+
+Build the front end
+
+    $ npm run build
+
+This will put the new files in the static directory of the shoestring app.
+
+### Backend
+
 Install package and requirements:
 
-    $ pip install shoestring
+    $ pipenv
     $ pip install shoestring/requirements.txt
 
 Start a Django project:
@@ -18,7 +34,7 @@ Start a Django project:
 Add shoestring apps to INSTALLED_APPS
 
     $ vi shop/settings.py
-  
+
     INSTALLED_APPS = [
       ...
       'shoestring',
@@ -28,6 +44,15 @@ Add shoestring apps to INSTALLED_APPS
       'shoestring.payments',
       'easy_thumbnails',
     ]
+
+Update the database settings:
+
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'shoestring',
+        }
+    }
 
 Use our User model:
 
@@ -45,16 +70,14 @@ Add default easy-thumbnails settings:
         },
     }
 
-The current theme expects to find [uikit](https://github.com/uikit/uikit/releases/download/v2.23.0/uikit-2.23.0.zip) in staticfiles at shoestring/uikit/
-
 Hook in the urls:
 
     $ vi shop/urls.py
 
-    url(r'^shop/', include('shoestring.urls', namespace='shoestring')),
+    path('shop/', include(('shoestring.urls', 'shoestring'), namespace='shoestring')),
 
 Prime the database
 
-    $ ./manage.py syncdb
+    $ ./manage.py migrate
     ...
     $ ./manage.py runserver
