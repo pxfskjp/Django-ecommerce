@@ -13,7 +13,7 @@
 		<tr>
 			<td colspan="3">Total</td>
 			<th>${{ dollarFormat(total) }}</th>
-			<td><button type="button" on:click="fire('check-out')">Check Out</button></td>
+			<td><button type="button" disabled="{{ empty }}" on:click="fire('check-out')">Check Out</button></td>
 		</tr>
 	</tfoot>
 	<tbody>
@@ -42,6 +42,7 @@
 			itemTotal
 		},
 		computed: {
+			empty: cart => cart.items.length === 0,
 			total: cart => cart.items.reduce((x, y) => x + (y.quantity * y.price), 0.0)
 		}
 	}
