@@ -8,13 +8,14 @@ import sass from 'node-sass';
 
 const production = !process.env.ROLLUP_WATCH;
 
+const dest = (production) ? '../shoestring/static/shoestring/' : 'public/'
 export default {
 	input: 'src/main.js',
 	output: {
 		sourcemap: true,
 		format: 'iife',
 		name: 'app',
-		file: 'public/bundle.js'
+		file: dest + 'bundle.js'
 	},
 	plugins: [
 		svelte({
@@ -23,7 +24,7 @@ export default {
 			// we'll extract any component CSS out into
 			// a separate file — better for performance
 			css: css => {
-				css.write('public/bundle.css');
+				css.write(dest + 'bundle.css');
 			},
 
 			preprocess: {
@@ -53,7 +54,7 @@ export default {
 		commonjs(),
 
 		scss({
-			output: 'public/global.css',
+			output: dest + 'global.css',
 			outputStyle: (production) ? 'compressed' : 'nested'
 		}),
 
