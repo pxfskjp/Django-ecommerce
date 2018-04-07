@@ -54,7 +54,7 @@ class CartView(rpc.RPCView):
         Update quantity
         '''
         if quantity == 0:
-            self.cart.pop(sku)
+            self.cart.pop(sku, None)
             self.save()
         else:
             try:
