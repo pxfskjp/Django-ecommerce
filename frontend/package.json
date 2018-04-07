@@ -11,7 +11,7 @@
     "rollup-plugin-svelte": "^4.1.0",
     "rollup-plugin-uglify": "^3.0.0",
     "serve": "^6.5.1",
-    "svelte": "^1.60.0"
+    "svelte": "^1.60.2"
   },
   "scripts": {
     "build": "rollup -c",
@@ -19,7 +19,5 @@
     "dev": "serve public & rollup -c -w",
     "start": "serve public"
   },
-  "dependencies": {
-    "svelte": "latest"
-  }
+  "dependencies": {}
 }
