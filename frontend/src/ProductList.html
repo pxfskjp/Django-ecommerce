@@ -1,3 +1,4 @@
+<section>
 {{#each products as product @sku}}
 <article on:click="fire('show-product', {product})">
   <header>
@@ -13,6 +14,7 @@
   </div>
 </article>
 {{/each}}
+</section>
 
 <script>
     import { clickme } from "./utils/events.js";
@@ -34,3 +36,14 @@
         }
     }
 </script>
+
+<style>
+    section {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    article {
+        flex: 0 0 auto;
+        margin: 0.5em;
+    }
+</style>
