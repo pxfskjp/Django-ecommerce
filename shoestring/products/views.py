@@ -81,8 +81,8 @@ class ProductListView(ProductMixin,
         qset = self.get_queryset()
 
         selected_tags = self.request.GET.getlist('tag')
-        totals = models.Product.objects.count_tag_values('tags')
-        counts = qset.count_tag_values('tags')
+        totals = dict(models.Product.objects.count_tag_values('tags'))
+        counts = dict(qset.count_tag_values('tags'))
         tags = [
             {
                 'name': tag,
