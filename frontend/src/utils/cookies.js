@@ -1,12 +1,12 @@
 export function getCookie(name) {
-
+    let value = undefined;
     (document.cookie || '')
         .split(';')
         .map(c => c.trim().match(/(\w+)=(.*)/))
         .forEach(m => {
             if(m !== undefined && m[1] == name) {
-                return decodeURIComponent(m[2]);
+                value = decodeURIComponent(m[2]);
             }
         });
-    return undefined;
+    return value;
 }
