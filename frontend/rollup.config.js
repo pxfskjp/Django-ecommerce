@@ -15,7 +15,7 @@ export default {
 		sourcemap: true,
 		format: 'iife',
 		name: 'app',
-		file: dest + 'bundle.js'
+		file: dest + 'shoestring.js'
 	},
 	plugins: [
 		svelte({
@@ -24,7 +24,7 @@ export default {
 			// we'll extract any component CSS out into
 			// a separate file — better for performance
 			css: css => {
-				css.write(dest + 'bundle.css');
+				css.write(dest + 'shoestring.css');
 			},
 
 			preprocess: {
@@ -54,7 +54,7 @@ export default {
 		commonjs(),
 
 		scss({
-			output: dest + 'global.css',
+			output: dest + 'shoestring-global.css',
 			outputStyle: (production) ? 'compressed' : 'nested'
 		}),
 
