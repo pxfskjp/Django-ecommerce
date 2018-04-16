@@ -10,8 +10,8 @@
     "rollup-plugin-scss": "^0.4.0",
     "rollup-plugin-svelte": "^4.1.0",
     "rollup-plugin-uglify": "^3.0.0",
-    "serve": "^6.5.1",
-    "svelte": "^1.60.2"
+    "serve": "^6.5.5",
+    "svelte": "^1.63.1"
   },
   "scripts": {
     "build": "rollup -c",
@@ -19,5 +19,7 @@
     "dev": "serve public & rollup -c -w",
     "start": "serve public"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@funkybob/request": "0.0.2"
+  }
 }

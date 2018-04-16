@@ -1,6 +1,6 @@
 import App from './App.html';
 import { getCookie } from './utils/cookies.js';
-import request from './utils/request.js';
+import request from '@funkybob/request';
 import { ShoestringStore } from "./store.js";
 
 import './global.scss';

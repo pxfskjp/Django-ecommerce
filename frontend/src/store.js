@@ -1,4 +1,4 @@
-import request from './utils/request.js';
+import request from '@funkybob/request';
 import { Store } from 'svelte/store.js';
 
 class ShoestringStore extends Store {
